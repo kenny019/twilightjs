@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { MsgSetDelegateAddresses, MsgSeenBtcChainTip } from "./tx";
 export const AminoConverter = {
   "/twilightproject.nyks.forks.MsgSetDelegateAddresses": {

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { MsgConfirmBtcDeposit, MsgRegisterBtcDepositAddress, MsgRegisterReserveAddress, MsgRegisterJudge, MsgWithdrawBtcRequest, MsgSweepProposal, MsgWithdrawTxSigned, MsgWithdrawTxFinal, MsgSignRefund, MsgBroadcastTxSweep, MsgSignSweep, MsgProposeRefundHash, MsgConfirmBtcWithdraw, MsgUnsignedTxSweep, MsgUnsignedTxRefund, MsgBroadcastTxRefund, MsgProposeSweepAddress } from "./tx";
 export const AminoConverter = {
   "/twilightproject.nyks.bridge.MsgConfirmBtcDeposit": {

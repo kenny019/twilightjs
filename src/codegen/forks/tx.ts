@@ -1,4 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
+import { Long, DeepPartial } from "../helpers";
+import * as _m0 from "protobufjs/minimal";
 export interface MsgSetDelegateAddresses {
   validatorAddress: string;
   btcOracleAddress: string;
@@ -23,7 +24,7 @@ export interface MsgSetDelegateAddressesSDKType {
   btcPublicKey: string;
 }
 export interface MsgSetDelegateAddressesResponse {
-  id: bigint;
+  id: Long;
 }
 export interface MsgSetDelegateAddressesResponseProtoMsg {
   typeUrl: "/twilightproject.nyks.forks.MsgSetDelegateAddressesResponse";
@@ -37,10 +38,10 @@ export interface MsgSetDelegateAddressesResponseAminoMsg {
   value: MsgSetDelegateAddressesResponseAmino;
 }
 export interface MsgSetDelegateAddressesResponseSDKType {
-  id: bigint;
+  id: Long;
 }
 export interface MsgSeenBtcChainTip {
-  height: bigint;
+  height: Long;
   hash: string;
   btcOracleAddress: string;
 }
@@ -58,7 +59,7 @@ export interface MsgSeenBtcChainTipAminoMsg {
   value: MsgSeenBtcChainTipAmino;
 }
 export interface MsgSeenBtcChainTipSDKType {
-  height: bigint;
+  height: Long;
   hash: string;
   btcOracleAddress: string;
 }
@@ -81,8 +82,7 @@ function createBaseMsgSetDelegateAddresses(): MsgSetDelegateAddresses {
   };
 }
 export const MsgSetDelegateAddresses = {
-  typeUrl: "/twilightproject.nyks.forks.MsgSetDelegateAddresses",
-  encode(message: MsgSetDelegateAddresses, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(message: MsgSetDelegateAddresses, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.validatorAddress !== "") {
       writer.uint32(18).string(message.validatorAddress);
     }
@@ -94,8 +94,8 @@ export const MsgSetDelegateAddresses = {
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgSetDelegateAddresses {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetDelegateAddresses {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSetDelegateAddresses();
     while (reader.pos < end) {
@@ -117,7 +117,7 @@ export const MsgSetDelegateAddresses = {
     }
     return message;
   },
-  fromPartial(object: Partial<MsgSetDelegateAddresses>): MsgSetDelegateAddresses {
+  fromPartial(object: DeepPartial<MsgSetDelegateAddresses>): MsgSetDelegateAddresses {
     const message = createBaseMsgSetDelegateAddresses();
     message.validatorAddress = object.validatorAddress ?? "";
     message.btcOracleAddress = object.btcOracleAddress ?? "";
@@ -156,26 +156,25 @@ export const MsgSetDelegateAddresses = {
 };
 function createBaseMsgSetDelegateAddressesResponse(): MsgSetDelegateAddressesResponse {
   return {
-    id: BigInt(0)
+    id: Long.UZERO
   };
 }
 export const MsgSetDelegateAddressesResponse = {
-  typeUrl: "/twilightproject.nyks.forks.MsgSetDelegateAddressesResponse",
-  encode(message: MsgSetDelegateAddressesResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.id !== BigInt(0)) {
+  encode(message: MsgSetDelegateAddressesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgSetDelegateAddressesResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetDelegateAddressesResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSetDelegateAddressesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = reader.uint64();
+          message.id = (reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -184,14 +183,14 @@ export const MsgSetDelegateAddressesResponse = {
     }
     return message;
   },
-  fromPartial(object: Partial<MsgSetDelegateAddressesResponse>): MsgSetDelegateAddressesResponse {
+  fromPartial(object: DeepPartial<MsgSetDelegateAddressesResponse>): MsgSetDelegateAddressesResponse {
     const message = createBaseMsgSetDelegateAddressesResponse();
-    message.id = object.id !== undefined && object.id !== null ? BigInt(object.id.toString()) : BigInt(0);
+    message.id = object.id !== undefined && object.id !== null ? Long.fromValue(object.id) : Long.UZERO;
     return message;
   },
   fromAmino(object: MsgSetDelegateAddressesResponseAmino): MsgSetDelegateAddressesResponse {
     return {
-      id: BigInt(object.id)
+      id: Long.fromString(object.id)
     };
   },
   toAmino(message: MsgSetDelegateAddressesResponse): MsgSetDelegateAddressesResponseAmino {
@@ -217,15 +216,14 @@ export const MsgSetDelegateAddressesResponse = {
 };
 function createBaseMsgSeenBtcChainTip(): MsgSeenBtcChainTip {
   return {
-    height: BigInt(0),
+    height: Long.UZERO,
     hash: "",
     btcOracleAddress: ""
   };
 }
 export const MsgSeenBtcChainTip = {
-  typeUrl: "/twilightproject.nyks.forks.MsgSeenBtcChainTip",
-  encode(message: MsgSeenBtcChainTip, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.height !== BigInt(0)) {
+  encode(message: MsgSeenBtcChainTip, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.height.isZero()) {
       writer.uint32(8).uint64(message.height);
     }
     if (message.hash !== "") {
@@ -236,15 +234,15 @@ export const MsgSeenBtcChainTip = {
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgSeenBtcChainTip {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSeenBtcChainTip {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSeenBtcChainTip();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.height = reader.uint64();
+          message.height = (reader.uint64() as Long);
           break;
         case 2:
           message.hash = reader.string();
@@ -259,16 +257,16 @@ export const MsgSeenBtcChainTip = {
     }
     return message;
   },
-  fromPartial(object: Partial<MsgSeenBtcChainTip>): MsgSeenBtcChainTip {
+  fromPartial(object: DeepPartial<MsgSeenBtcChainTip>): MsgSeenBtcChainTip {
     const message = createBaseMsgSeenBtcChainTip();
-    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
+    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
     message.hash = object.hash ?? "";
     message.btcOracleAddress = object.btcOracleAddress ?? "";
     return message;
   },
   fromAmino(object: MsgSeenBtcChainTipAmino): MsgSeenBtcChainTip {
     return {
-      height: BigInt(object.height),
+      height: Long.fromString(object.height),
       hash: object.hash,
       btcOracleAddress: object.btcOracleAddress
     };
@@ -300,12 +298,11 @@ function createBaseMsgSeenBtcChainTipResponse(): MsgSeenBtcChainTipResponse {
   return {};
 }
 export const MsgSeenBtcChainTipResponse = {
-  typeUrl: "/twilightproject.nyks.forks.MsgSeenBtcChainTipResponse",
-  encode(_: MsgSeenBtcChainTipResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+  encode(_: MsgSeenBtcChainTipResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): MsgSeenBtcChainTipResponse {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSeenBtcChainTipResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgSeenBtcChainTipResponse();
     while (reader.pos < end) {
@@ -318,7 +315,7 @@ export const MsgSeenBtcChainTipResponse = {
     }
     return message;
   },
-  fromPartial(_: Partial<MsgSeenBtcChainTipResponse>): MsgSeenBtcChainTipResponse {
+  fromPartial(_: DeepPartial<MsgSeenBtcChainTipResponse>): MsgSeenBtcChainTipResponse {
     const message = createBaseMsgSeenBtcChainTipResponse();
     return message;
   },

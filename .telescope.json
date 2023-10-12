@@ -45,7 +45,8 @@
       "includeCosmosDefaultTypes": true
     },
     "aminoEncoding": {
-      "enabled": true
+      "enabled": true,
+      "useRecursiveV2encoding": false
     },
     "lcdClients": {
       "enabled": true

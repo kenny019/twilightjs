@@ -1,20 +1,21 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
+import { Long, DeepPartial } from "../helpers";
+import * as _m0 from "protobufjs/minimal";
 /**
  * BtcReserve is a mapping of a validator address to a reserve ID
  * It holds other values in the reserve struct such as total
  * value, private pool value, public pool value, and the btc relay capacity value
  */
 export interface BtcReserve {
-  ReserveId: bigint;
+  ReserveId: Long;
   ReserveAddress: string;
   JudgeAddress: string;
-  BtcRelayCapacityValue: bigint;
-  TotalValue: bigint;
-  PrivatePoolValue: bigint;
-  PublicValue: bigint;
-  FeePool: bigint;
-  UnlockHeight: bigint;
-  RoundId: bigint;
+  BtcRelayCapacityValue: Long;
+  TotalValue: Long;
+  PrivatePoolValue: Long;
+  PublicValue: Long;
+  FeePool: Long;
+  UnlockHeight: Long;
+  RoundId: Long;
 }
 export interface BtcReserveProtoMsg {
   typeUrl: "/twilightproject.nyks.volt.BtcReserve";
@@ -47,20 +48,20 @@ export interface BtcReserveAminoMsg {
  * value, private pool value, public pool value, and the btc relay capacity value
  */
 export interface BtcReserveSDKType {
-  ReserveId: bigint;
+  ReserveId: Long;
   ReserveAddress: string;
   JudgeAddress: string;
-  BtcRelayCapacityValue: bigint;
-  TotalValue: bigint;
-  PrivatePoolValue: bigint;
-  PublicValue: bigint;
-  FeePool: bigint;
-  UnlockHeight: bigint;
-  RoundId: bigint;
+  BtcRelayCapacityValue: Long;
+  TotalValue: Long;
+  PrivatePoolValue: Long;
+  PublicValue: Long;
+  FeePool: Long;
+  UnlockHeight: Long;
+  RoundId: Long;
 }
 export interface ReserveWithdrawPool {
-  ReserveID: bigint;
-  RoundID: bigint;
+  ReserveID: Long;
+  RoundID: Long;
   /** vector of identifiers */
   Identifiers: Uint8Array[];
 }
@@ -79,28 +80,27 @@ export interface ReserveWithdrawPoolAminoMsg {
   value: ReserveWithdrawPoolAmino;
 }
 export interface ReserveWithdrawPoolSDKType {
-  ReserveID: bigint;
-  RoundID: bigint;
+  ReserveID: Long;
+  RoundID: Long;
   Identifiers: Uint8Array[];
 }
 function createBaseBtcReserve(): BtcReserve {
   return {
-    ReserveId: BigInt(0),
+    ReserveId: Long.UZERO,
     ReserveAddress: "",
     JudgeAddress: "",
-    BtcRelayCapacityValue: BigInt(0),
-    TotalValue: BigInt(0),
-    PrivatePoolValue: BigInt(0),
-    PublicValue: BigInt(0),
-    FeePool: BigInt(0),
-    UnlockHeight: BigInt(0),
-    RoundId: BigInt(0)
+    BtcRelayCapacityValue: Long.UZERO,
+    TotalValue: Long.UZERO,
+    PrivatePoolValue: Long.UZERO,
+    PublicValue: Long.UZERO,
+    FeePool: Long.UZERO,
+    UnlockHeight: Long.UZERO,
+    RoundId: Long.UZERO
   };
 }
 export const BtcReserve = {
-  typeUrl: "/twilightproject.nyks.volt.BtcReserve",
-  encode(message: BtcReserve, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.ReserveId !== BigInt(0)) {
+  encode(message: BtcReserve, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.ReserveId.isZero()) {
       writer.uint32(8).uint64(message.ReserveId);
     }
     if (message.ReserveAddress !== "") {
@@ -109,38 +109,38 @@ export const BtcReserve = {
     if (message.JudgeAddress !== "") {
       writer.uint32(26).string(message.JudgeAddress);
     }
-    if (message.BtcRelayCapacityValue !== BigInt(0)) {
+    if (!message.BtcRelayCapacityValue.isZero()) {
       writer.uint32(32).uint64(message.BtcRelayCapacityValue);
     }
-    if (message.TotalValue !== BigInt(0)) {
+    if (!message.TotalValue.isZero()) {
       writer.uint32(40).uint64(message.TotalValue);
     }
-    if (message.PrivatePoolValue !== BigInt(0)) {
+    if (!message.PrivatePoolValue.isZero()) {
       writer.uint32(48).uint64(message.PrivatePoolValue);
     }
-    if (message.PublicValue !== BigInt(0)) {
+    if (!message.PublicValue.isZero()) {
       writer.uint32(56).uint64(message.PublicValue);
     }
-    if (message.FeePool !== BigInt(0)) {
+    if (!message.FeePool.isZero()) {
       writer.uint32(64).uint64(message.FeePool);
     }
-    if (message.UnlockHeight !== BigInt(0)) {
+    if (!message.UnlockHeight.isZero()) {
       writer.uint32(72).uint64(message.UnlockHeight);
     }
-    if (message.RoundId !== BigInt(0)) {
+    if (!message.RoundId.isZero()) {
       writer.uint32(80).uint64(message.RoundId);
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): BtcReserve {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): BtcReserve {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBtcReserve();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ReserveId = reader.uint64();
+          message.ReserveId = (reader.uint64() as Long);
           break;
         case 2:
           message.ReserveAddress = reader.string();
@@ -149,25 +149,25 @@ export const BtcReserve = {
           message.JudgeAddress = reader.string();
           break;
         case 4:
-          message.BtcRelayCapacityValue = reader.uint64();
+          message.BtcRelayCapacityValue = (reader.uint64() as Long);
           break;
         case 5:
-          message.TotalValue = reader.uint64();
+          message.TotalValue = (reader.uint64() as Long);
           break;
         case 6:
-          message.PrivatePoolValue = reader.uint64();
+          message.PrivatePoolValue = (reader.uint64() as Long);
           break;
         case 7:
-          message.PublicValue = reader.uint64();
+          message.PublicValue = (reader.uint64() as Long);
           break;
         case 8:
-          message.FeePool = reader.uint64();
+          message.FeePool = (reader.uint64() as Long);
           break;
         case 9:
-          message.UnlockHeight = reader.uint64();
+          message.UnlockHeight = (reader.uint64() as Long);
           break;
         case 10:
-          message.RoundId = reader.uint64();
+          message.RoundId = (reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -176,32 +176,32 @@ export const BtcReserve = {
     }
     return message;
   },
-  fromPartial(object: Partial<BtcReserve>): BtcReserve {
+  fromPartial(object: DeepPartial<BtcReserve>): BtcReserve {
     const message = createBaseBtcReserve();
-    message.ReserveId = object.ReserveId !== undefined && object.ReserveId !== null ? BigInt(object.ReserveId.toString()) : BigInt(0);
+    message.ReserveId = object.ReserveId !== undefined && object.ReserveId !== null ? Long.fromValue(object.ReserveId) : Long.UZERO;
     message.ReserveAddress = object.ReserveAddress ?? "";
     message.JudgeAddress = object.JudgeAddress ?? "";
-    message.BtcRelayCapacityValue = object.BtcRelayCapacityValue !== undefined && object.BtcRelayCapacityValue !== null ? BigInt(object.BtcRelayCapacityValue.toString()) : BigInt(0);
-    message.TotalValue = object.TotalValue !== undefined && object.TotalValue !== null ? BigInt(object.TotalValue.toString()) : BigInt(0);
-    message.PrivatePoolValue = object.PrivatePoolValue !== undefined && object.PrivatePoolValue !== null ? BigInt(object.PrivatePoolValue.toString()) : BigInt(0);
-    message.PublicValue = object.PublicValue !== undefined && object.PublicValue !== null ? BigInt(object.PublicValue.toString()) : BigInt(0);
-    message.FeePool = object.FeePool !== undefined && object.FeePool !== null ? BigInt(object.FeePool.toString()) : BigInt(0);
-    message.UnlockHeight = object.UnlockHeight !== undefined && object.UnlockHeight !== null ? BigInt(object.UnlockHeight.toString()) : BigInt(0);
-    message.RoundId = object.RoundId !== undefined && object.RoundId !== null ? BigInt(object.RoundId.toString()) : BigInt(0);
+    message.BtcRelayCapacityValue = object.BtcRelayCapacityValue !== undefined && object.BtcRelayCapacityValue !== null ? Long.fromValue(object.BtcRelayCapacityValue) : Long.UZERO;
+    message.TotalValue = object.TotalValue !== undefined && object.TotalValue !== null ? Long.fromValue(object.TotalValue) : Long.UZERO;
+    message.PrivatePoolValue = object.PrivatePoolValue !== undefined && object.PrivatePoolValue !== null ? Long.fromValue(object.PrivatePoolValue) : Long.UZERO;
+    message.PublicValue = object.PublicValue !== undefined && object.PublicValue !== null ? Long.fromValue(object.PublicValue) : Long.UZERO;
+    message.FeePool = object.FeePool !== undefined && object.FeePool !== null ? Long.fromValue(object.FeePool) : Long.UZERO;
+    message.UnlockHeight = object.UnlockHeight !== undefined && object.UnlockHeight !== null ? Long.fromValue(object.UnlockHeight) : Long.UZERO;
+    message.RoundId = object.RoundId !== undefined && object.RoundId !== null ? Long.fromValue(object.RoundId) : Long.UZERO;
     return message;
   },
   fromAmino(object: BtcReserveAmino): BtcReserve {
     return {
-      ReserveId: BigInt(object.ReserveId),
+      ReserveId: Long.fromString(object.ReserveId),
       ReserveAddress: object.ReserveAddress,
       JudgeAddress: object.JudgeAddress,
-      BtcRelayCapacityValue: BigInt(object.BtcRelayCapacityValue),
-      TotalValue: BigInt(object.TotalValue),
-      PrivatePoolValue: BigInt(object.PrivatePoolValue),
-      PublicValue: BigInt(object.PublicValue),
-      FeePool: BigInt(object.FeePool),
-      UnlockHeight: BigInt(object.UnlockHeight),
-      RoundId: BigInt(object.RoundId)
+      BtcRelayCapacityValue: Long.fromString(object.BtcRelayCapacityValue),
+      TotalValue: Long.fromString(object.TotalValue),
+      PrivatePoolValue: Long.fromString(object.PrivatePoolValue),
+      PublicValue: Long.fromString(object.PublicValue),
+      FeePool: Long.fromString(object.FeePool),
+      UnlockHeight: Long.fromString(object.UnlockHeight),
+      RoundId: Long.fromString(object.RoundId)
     };
   },
   toAmino(message: BtcReserve): BtcReserveAmino {
@@ -236,18 +236,17 @@ export const BtcReserve = {
 };
 function createBaseReserveWithdrawPool(): ReserveWithdrawPool {
   return {
-    ReserveID: BigInt(0),
-    RoundID: BigInt(0),
+    ReserveID: Long.UZERO,
+    RoundID: Long.UZERO,
     Identifiers: []
   };
 }
 export const ReserveWithdrawPool = {
-  typeUrl: "/twilightproject.nyks.volt.ReserveWithdrawPool",
-  encode(message: ReserveWithdrawPool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.ReserveID !== BigInt(0)) {
+  encode(message: ReserveWithdrawPool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.ReserveID.isZero()) {
       writer.uint32(8).uint64(message.ReserveID);
     }
-    if (message.RoundID !== BigInt(0)) {
+    if (!message.RoundID.isZero()) {
       writer.uint32(16).uint64(message.RoundID);
     }
     for (const v of message.Identifiers) {
@@ -255,18 +254,18 @@ export const ReserveWithdrawPool = {
     }
     return writer;
   },
-  decode(input: BinaryReader | Uint8Array, length?: number): ReserveWithdrawPool {
-    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): ReserveWithdrawPool {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseReserveWithdrawPool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ReserveID = reader.uint64();
+          message.ReserveID = (reader.uint64() as Long);
           break;
         case 2:
-          message.RoundID = reader.uint64();
+          message.RoundID = (reader.uint64() as Long);
           break;
         case 3:
           message.Identifiers.push(reader.bytes());
@@ -278,17 +277,17 @@ export const ReserveWithdrawPool = {
     }
     return message;
   },
-  fromPartial(object: Partial<ReserveWithdrawPool>): ReserveWithdrawPool {
+  fromPartial(object: DeepPartial<ReserveWithdrawPool>): ReserveWithdrawPool {
     const message = createBaseReserveWithdrawPool();
-    message.ReserveID = object.ReserveID !== undefined && object.ReserveID !== null ? BigInt(object.ReserveID.toString()) : BigInt(0);
-    message.RoundID = object.RoundID !== undefined && object.RoundID !== null ? BigInt(object.RoundID.toString()) : BigInt(0);
+    message.ReserveID = object.ReserveID !== undefined && object.ReserveID !== null ? Long.fromValue(object.ReserveID) : Long.UZERO;
+    message.RoundID = object.RoundID !== undefined && object.RoundID !== null ? Long.fromValue(object.RoundID) : Long.UZERO;
     message.Identifiers = object.Identifiers?.map(e => e) || [];
     return message;
   },
   fromAmino(object: ReserveWithdrawPoolAmino): ReserveWithdrawPool {
     return {
-      ReserveID: BigInt(object.ReserveID),
-      RoundID: BigInt(object.RoundID),
+      ReserveID: Long.fromString(object.ReserveID),
+      RoundID: Long.fromString(object.RoundID),
       Identifiers: Array.isArray(object?.Identifiers) ? object.Identifiers.map((e: any) => e) : []
     };
   },

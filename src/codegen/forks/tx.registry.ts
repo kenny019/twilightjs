@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
 import { MsgSetDelegateAddresses, MsgSeenBtcChainTip } from "./tx";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [["/twilightproject.nyks.forks.MsgSetDelegateAddresses", MsgSetDelegateAddresses], ["/twilightproject.nyks.forks.MsgSeenBtcChainTip", MsgSeenBtcChainTip]];
