@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { MsgTransferTx, MsgMintBurnTradingBtc } from "./tx";
 export const AminoConverter = {
   "/twilightproject.nyks.zkos.MsgTransferTx": {

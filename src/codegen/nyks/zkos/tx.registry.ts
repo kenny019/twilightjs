@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
 import { MsgTransferTx, MsgMintBurnTradingBtc } from "./tx";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [["/twilightproject.nyks.zkos.MsgTransferTx", MsgTransferTx], ["/twilightproject.nyks.zkos.MsgMintBurnTradingBtc", MsgMintBurnTradingBtc]];

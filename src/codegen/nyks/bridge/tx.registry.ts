@@ -1,7 +1,6 @@
-//@ts-nocheck
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
-import { MsgConfirmBtcDeposit, MsgRegisterBtcDepositAddress, MsgRegisterReserveAddress, MsgRegisterJudge, MsgWithdrawBtcRequest, MsgSweepProposal, MsgWithdrawTxSigned, MsgWithdrawTxFinal, MsgSignRefund, MsgBroadcastTxSweep, MsgSignSweep, MsgProposeRefundHash, MsgConfirmBtcWithdraw } from "./tx";
-export const registry: ReadonlyArray<[string, GeneratedType]> = [["/twilightproject.nyks.bridge.MsgConfirmBtcDeposit", MsgConfirmBtcDeposit], ["/twilightproject.nyks.bridge.MsgRegisterBtcDepositAddress", MsgRegisterBtcDepositAddress], ["/twilightproject.nyks.bridge.MsgRegisterReserveAddress", MsgRegisterReserveAddress], ["/twilightproject.nyks.bridge.MsgRegisterJudge", MsgRegisterJudge], ["/twilightproject.nyks.bridge.MsgWithdrawBtcRequest", MsgWithdrawBtcRequest], ["/twilightproject.nyks.bridge.MsgSweepProposal", MsgSweepProposal], ["/twilightproject.nyks.bridge.MsgWithdrawTxSigned", MsgWithdrawTxSigned], ["/twilightproject.nyks.bridge.MsgWithdrawTxFinal", MsgWithdrawTxFinal], ["/twilightproject.nyks.bridge.MsgSignRefund", MsgSignRefund], ["/twilightproject.nyks.bridge.MsgBroadcastTxSweep", MsgBroadcastTxSweep], ["/twilightproject.nyks.bridge.MsgSignSweep", MsgSignSweep], ["/twilightproject.nyks.bridge.MsgProposeRefundHash", MsgProposeRefundHash], ["/twilightproject.nyks.bridge.MsgConfirmBtcWithdraw", MsgConfirmBtcWithdraw]];
+import { MsgConfirmBtcDeposit, MsgRegisterBtcDepositAddress, MsgRegisterReserveAddress, MsgRegisterJudge, MsgWithdrawBtcRequest, MsgSweepProposal, MsgWithdrawTxSigned, MsgWithdrawTxFinal, MsgSignRefund, MsgBroadcastTxSweep, MsgSignSweep, MsgProposeRefundHash, MsgConfirmBtcWithdraw, MsgUnsignedTxSweep, MsgUnsignedTxRefund, MsgBroadcastTxRefund, MsgProposeSweepAddress } from "./tx";
+export const registry: ReadonlyArray<[string, GeneratedType]> = [["/twilightproject.nyks.bridge.MsgConfirmBtcDeposit", MsgConfirmBtcDeposit], ["/twilightproject.nyks.bridge.MsgRegisterBtcDepositAddress", MsgRegisterBtcDepositAddress], ["/twilightproject.nyks.bridge.MsgRegisterReserveAddress", MsgRegisterReserveAddress], ["/twilightproject.nyks.bridge.MsgRegisterJudge", MsgRegisterJudge], ["/twilightproject.nyks.bridge.MsgWithdrawBtcRequest", MsgWithdrawBtcRequest], ["/twilightproject.nyks.bridge.MsgSweepProposal", MsgSweepProposal], ["/twilightproject.nyks.bridge.MsgWithdrawTxSigned", MsgWithdrawTxSigned], ["/twilightproject.nyks.bridge.MsgWithdrawTxFinal", MsgWithdrawTxFinal], ["/twilightproject.nyks.bridge.MsgSignRefund", MsgSignRefund], ["/twilightproject.nyks.bridge.MsgBroadcastTxSweep", MsgBroadcastTxSweep], ["/twilightproject.nyks.bridge.MsgSignSweep", MsgSignSweep], ["/twilightproject.nyks.bridge.MsgProposeRefundHash", MsgProposeRefundHash], ["/twilightproject.nyks.bridge.MsgConfirmBtcWithdraw", MsgConfirmBtcWithdraw], ["/twilightproject.nyks.bridge.MsgUnsignedTxSweep", MsgUnsignedTxSweep], ["/twilightproject.nyks.bridge.MsgUnsignedTxRefund", MsgUnsignedTxRefund], ["/twilightproject.nyks.bridge.MsgBroadcastTxRefund", MsgBroadcastTxRefund], ["/twilightproject.nyks.bridge.MsgProposeSweepAddress", MsgProposeSweepAddress]];
 export const load = (protoRegistry: Registry) => {
   registry.forEach(([typeUrl, mod]) => {
     protoRegistry.register(typeUrl, mod);
@@ -86,6 +85,30 @@ export const MessageComposer = {
         typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcWithdraw",
         value: MsgConfirmBtcWithdraw.encode(value).finish()
       };
+    },
+    unsignedTxSweep(value: MsgUnsignedTxSweep) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep",
+        value: MsgUnsignedTxSweep.encode(value).finish()
+      };
+    },
+    unsignedTxRefund(value: MsgUnsignedTxRefund) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund",
+        value: MsgUnsignedTxRefund.encode(value).finish()
+      };
+    },
+    broadcastTxRefund(value: MsgBroadcastTxRefund) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund",
+        value: MsgBroadcastTxRefund.encode(value).finish()
+      };
+    },
+    proposeSweepAddress(value: MsgProposeSweepAddress) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddress",
+        value: MsgProposeSweepAddress.encode(value).finish()
+      };
     }
   },
   withTypeUrl: {
@@ -164,6 +187,30 @@ export const MessageComposer = {
     confirmBtcWithdraw(value: MsgConfirmBtcWithdraw) {
       return {
         typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcWithdraw",
+        value
+      };
+    },
+    unsignedTxSweep(value: MsgUnsignedTxSweep) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep",
+        value
+      };
+    },
+    unsignedTxRefund(value: MsgUnsignedTxRefund) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund",
+        value
+      };
+    },
+    broadcastTxRefund(value: MsgBroadcastTxRefund) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund",
+        value
+      };
+    },
+    proposeSweepAddress(value: MsgProposeSweepAddress) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddress",
         value
       };
     }
@@ -245,6 +292,30 @@ export const MessageComposer = {
       return {
         typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcWithdraw",
         value: MsgConfirmBtcWithdraw.fromPartial(value)
+      };
+    },
+    unsignedTxSweep(value: MsgUnsignedTxSweep) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep",
+        value: MsgUnsignedTxSweep.fromPartial(value)
+      };
+    },
+    unsignedTxRefund(value: MsgUnsignedTxRefund) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund",
+        value: MsgUnsignedTxRefund.fromPartial(value)
+      };
+    },
+    broadcastTxRefund(value: MsgBroadcastTxRefund) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund",
+        value: MsgBroadcastTxRefund.fromPartial(value)
+      };
+    },
+    proposeSweepAddress(value: MsgProposeSweepAddress) {
+      return {
+        typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddress",
+        value: MsgProposeSweepAddress.fromPartial(value)
       };
     }
   }

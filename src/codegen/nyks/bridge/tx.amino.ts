@@ -1,5 +1,4 @@
-//@ts-nocheck
-import { MsgConfirmBtcDeposit, MsgRegisterBtcDepositAddress, MsgRegisterReserveAddress, MsgRegisterJudge, MsgWithdrawBtcRequest, MsgSweepProposal, MsgWithdrawTxSigned, MsgWithdrawTxFinal, MsgSignRefund, MsgBroadcastTxSweep, MsgSignSweep, MsgProposeRefundHash, MsgConfirmBtcWithdraw } from "./tx";
+import { MsgConfirmBtcDeposit, MsgRegisterBtcDepositAddress, MsgRegisterReserveAddress, MsgRegisterJudge, MsgWithdrawBtcRequest, MsgSweepProposal, MsgWithdrawTxSigned, MsgWithdrawTxFinal, MsgSignRefund, MsgBroadcastTxSweep, MsgSignSweep, MsgProposeRefundHash, MsgConfirmBtcWithdraw, MsgUnsignedTxSweep, MsgUnsignedTxRefund, MsgBroadcastTxRefund, MsgProposeSweepAddress } from "./tx";
 export const AminoConverter = {
   "/twilightproject.nyks.bridge.MsgConfirmBtcDeposit": {
     aminoType: "/twilightproject.nyks.bridge.MsgConfirmBtcDeposit",
@@ -65,5 +64,25 @@ export const AminoConverter = {
     aminoType: "/twilightproject.nyks.bridge.MsgConfirmBtcWithdraw",
     toAmino: MsgConfirmBtcWithdraw.toAmino,
     fromAmino: MsgConfirmBtcWithdraw.fromAmino
+  },
+  "/twilightproject.nyks.bridge.MsgUnsignedTxSweep": {
+    aminoType: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep",
+    toAmino: MsgUnsignedTxSweep.toAmino,
+    fromAmino: MsgUnsignedTxSweep.fromAmino
+  },
+  "/twilightproject.nyks.bridge.MsgUnsignedTxRefund": {
+    aminoType: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund",
+    toAmino: MsgUnsignedTxRefund.toAmino,
+    fromAmino: MsgUnsignedTxRefund.fromAmino
+  },
+  "/twilightproject.nyks.bridge.MsgBroadcastTxRefund": {
+    aminoType: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund",
+    toAmino: MsgBroadcastTxRefund.toAmino,
+    fromAmino: MsgBroadcastTxRefund.fromAmino
+  },
+  "/twilightproject.nyks.bridge.MsgProposeSweepAddress": {
+    aminoType: "/twilightproject.nyks.bridge.MsgProposeSweepAddress",
+    toAmino: MsgProposeSweepAddress.toAmino,
+    fromAmino: MsgProposeSweepAddress.fromAmino
   }
 };

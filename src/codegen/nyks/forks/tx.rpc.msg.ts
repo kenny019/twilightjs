@@ -1,5 +1,5 @@
 import { Rpc } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader } from "../../binary";
 import { MsgSetDelegateAddresses, MsgSetDelegateAddressesResponse, MsgSeenBtcChainTip, MsgSeenBtcChainTipResponse } from "./tx";
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -16,11 +16,11 @@ export class MsgClientImpl implements Msg {
   setDelegateAddresses(request: MsgSetDelegateAddresses): Promise<MsgSetDelegateAddressesResponse> {
     const data = MsgSetDelegateAddresses.encode(request).finish();
     const promise = this.rpc.request("twilightproject.nyks.forks.Msg", "SetDelegateAddresses", data);
-    return promise.then(data => MsgSetDelegateAddressesResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSetDelegateAddressesResponse.decode(new BinaryReader(data)));
   }
   seenBtcChainTip(request: MsgSeenBtcChainTip): Promise<MsgSeenBtcChainTipResponse> {
     const data = MsgSeenBtcChainTip.encode(request).finish();
     const promise = this.rpc.request("twilightproject.nyks.forks.Msg", "SeenBtcChainTip", data);
-    return promise.then(data => MsgSeenBtcChainTipResponse.decode(new _m0.Reader(data)));
+    return promise.then(data => MsgSeenBtcChainTipResponse.decode(new BinaryReader(data)));
   }
 }

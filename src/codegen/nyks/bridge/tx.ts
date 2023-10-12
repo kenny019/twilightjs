@@ -1,9 +1,8 @@
-import { Long, DeepPartial } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader, BinaryWriter } from "../../binary";
 export interface MsgConfirmBtcDeposit {
   reserveAddress: string;
-  depositAmount: Long;
-  height: Long;
+  depositAmount: bigint;
+  height: bigint;
   hash: string;
   twilightDepositAddress: string;
   oracleAddress: string;
@@ -26,8 +25,8 @@ export interface MsgConfirmBtcDepositAminoMsg {
 }
 export interface MsgConfirmBtcDepositSDKType {
   reserveAddress: string;
-  depositAmount: Long;
-  height: Long;
+  depositAmount: bigint;
+  height: bigint;
   hash: string;
   twilightDepositAddress: string;
   oracleAddress: string;
@@ -50,24 +49,30 @@ export interface MsgConfirmBtcDepositResponseSDKType {
   twilightDepositAddress: string;
 }
 export interface MsgRegisterBtcDepositAddress {
-  depositAddress: string;
-  twilightDepositAddress: string;
+  btcDepositAddress: string;
+  btcSatoshiTestAmount: bigint;
+  twilightStakingAmount: bigint;
+  twilightAddress: string;
 }
 export interface MsgRegisterBtcDepositAddressProtoMsg {
   typeUrl: "/twilightproject.nyks.bridge.MsgRegisterBtcDepositAddress";
   value: Uint8Array;
 }
 export interface MsgRegisterBtcDepositAddressAmino {
-  depositAddress: string;
-  twilightDepositAddress: string;
+  btcDepositAddress: string;
+  btcSatoshiTestAmount: string;
+  twilightStakingAmount: string;
+  twilightAddress: string;
 }
 export interface MsgRegisterBtcDepositAddressAminoMsg {
   type: "/twilightproject.nyks.bridge.MsgRegisterBtcDepositAddress";
   value: MsgRegisterBtcDepositAddressAmino;
 }
 export interface MsgRegisterBtcDepositAddressSDKType {
-  depositAddress: string;
-  twilightDepositAddress: string;
+  btcDepositAddress: string;
+  btcSatoshiTestAmount: bigint;
+  twilightStakingAmount: bigint;
+  twilightAddress: string;
 }
 export interface MsgRegisterBtcDepositAddressResponse {}
 export interface MsgRegisterBtcDepositAddressResponseProtoMsg {
@@ -104,6 +109,7 @@ export interface MsgRegisterReserveAddressSDKType {
   judgeAddress: string;
 }
 export interface MsgRegisterReserveAddressResponse {
+  reserveId: string;
   reserveAddress: string;
 }
 export interface MsgRegisterReserveAddressResponseProtoMsg {
@@ -111,6 +117,7 @@ export interface MsgRegisterReserveAddressResponseProtoMsg {
   value: Uint8Array;
 }
 export interface MsgRegisterReserveAddressResponseAmino {
+  reserveId: string;
   reserveAddress: string;
 }
 export interface MsgRegisterReserveAddressResponseAminoMsg {
@@ -118,6 +125,7 @@ export interface MsgRegisterReserveAddressResponseAminoMsg {
   value: MsgRegisterReserveAddressResponseAmino;
 }
 export interface MsgRegisterReserveAddressResponseSDKType {
+  reserveId: string;
   reserveAddress: string;
 }
 export interface MsgRegisterJudge {
@@ -158,7 +166,7 @@ export interface MsgRegisterJudgeResponseSDKType {}
 export interface MsgWithdrawBtcRequest {
   withdrawAddress: string;
   reserveAddress: string;
-  withdrawAmount: Long;
+  withdrawAmount: bigint;
   twilightAddress: string;
 }
 export interface MsgWithdrawBtcRequestProtoMsg {
@@ -180,7 +188,7 @@ export interface MsgWithdrawBtcRequestAminoMsg {
 export interface MsgWithdrawBtcRequestSDKType {
   withdrawAddress: string;
   reserveAddress: string;
-  withdrawAmount: Long;
+  withdrawAmount: bigint;
   twilightAddress: string;
 }
 export interface MsgWithdrawBtcRequestResponse {}
@@ -194,61 +202,6 @@ export interface MsgWithdrawBtcRequestResponseAminoMsg {
   value: MsgWithdrawBtcRequestResponseAmino;
 }
 export interface MsgWithdrawBtcRequestResponseSDKType {}
-export interface MsgSweepProposal {
-  reserveId: Long;
-  reserveAddress: string;
-  judgeAddress: string;
-  btcRelayCapacityValue: Long;
-  totalValue: Long;
-  privatePoolValue: Long;
-  publicValue: Long;
-  feePool: Long;
-  btcRefundTx: string;
-  btcSweepTx: string;
-}
-export interface MsgSweepProposalProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposal";
-  value: Uint8Array;
-}
-export interface MsgSweepProposalAmino {
-  reserveId: string;
-  reserveAddress: string;
-  judgeAddress: string;
-  btcRelayCapacityValue: string;
-  totalValue: string;
-  privatePoolValue: string;
-  publicValue: string;
-  feePool: string;
-  btcRefundTx: string;
-  btcSweepTx: string;
-}
-export interface MsgSweepProposalAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgSweepProposal";
-  value: MsgSweepProposalAmino;
-}
-export interface MsgSweepProposalSDKType {
-  reserveId: Long;
-  reserveAddress: string;
-  judgeAddress: string;
-  btcRelayCapacityValue: Long;
-  totalValue: Long;
-  privatePoolValue: Long;
-  publicValue: Long;
-  feePool: Long;
-  btcRefundTx: string;
-  btcSweepTx: string;
-}
-export interface MsgSweepProposalResponse {}
-export interface MsgSweepProposalResponseProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposalResponse";
-  value: Uint8Array;
-}
-export interface MsgSweepProposalResponseAmino {}
-export interface MsgSweepProposalResponseAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgSweepProposalResponse";
-  value: MsgSweepProposalResponseAmino;
-}
-export interface MsgSweepProposalResponseSDKType {}
 export interface MsgWithdrawTxSigned {
   creator: string;
   validatorAddress: string;
@@ -317,114 +270,6 @@ export interface MsgWithdrawTxFinalResponseAminoMsg {
   value: MsgWithdrawTxFinalResponseAmino;
 }
 export interface MsgWithdrawTxFinalResponseSDKType {}
-export interface MsgSignRefund {
-  reserveAddress: string;
-  signerAddress: string;
-  refundSignature: string;
-  btcOracleAddress: string;
-}
-export interface MsgSignRefundProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgSignRefund";
-  value: Uint8Array;
-}
-export interface MsgSignRefundAmino {
-  reserveAddress: string;
-  signerAddress: string;
-  refundSignature: string;
-  btcOracleAddress: string;
-}
-export interface MsgSignRefundAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgSignRefund";
-  value: MsgSignRefundAmino;
-}
-export interface MsgSignRefundSDKType {
-  reserveAddress: string;
-  signerAddress: string;
-  refundSignature: string;
-  btcOracleAddress: string;
-}
-export interface MsgSignRefundResponse {}
-export interface MsgSignRefundResponseProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgSignRefundResponse";
-  value: Uint8Array;
-}
-export interface MsgSignRefundResponseAmino {}
-export interface MsgSignRefundResponseAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgSignRefundResponse";
-  value: MsgSignRefundResponseAmino;
-}
-export interface MsgSignRefundResponseSDKType {}
-export interface MsgSignSweep {
-  reserveAddress: string;
-  signerAddress: string;
-  sweepSignature: string;
-  btcOracleAddress: string;
-}
-export interface MsgSignSweepProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgSignSweep";
-  value: Uint8Array;
-}
-export interface MsgSignSweepAmino {
-  reserveAddress: string;
-  signerAddress: string;
-  sweepSignature: string;
-  btcOracleAddress: string;
-}
-export interface MsgSignSweepAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgSignSweep";
-  value: MsgSignSweepAmino;
-}
-export interface MsgSignSweepSDKType {
-  reserveAddress: string;
-  signerAddress: string;
-  sweepSignature: string;
-  btcOracleAddress: string;
-}
-export interface MsgSignSweepResponse {}
-export interface MsgSignSweepResponseProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgSignSweepResponse";
-  value: Uint8Array;
-}
-export interface MsgSignSweepResponseAmino {}
-export interface MsgSignSweepResponseAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgSignSweepResponse";
-  value: MsgSignSweepResponseAmino;
-}
-export interface MsgSignSweepResponseSDKType {}
-export interface MsgBroadcastTxSweep {
-  signedRefundTx: string;
-  signedSweepTx: string;
-  judgeAddress: string;
-}
-export interface MsgBroadcastTxSweepProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweep";
-  value: Uint8Array;
-}
-export interface MsgBroadcastTxSweepAmino {
-  signedRefundTx: string;
-  signedSweepTx: string;
-  judgeAddress: string;
-}
-export interface MsgBroadcastTxSweepAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgBroadcastTxSweep";
-  value: MsgBroadcastTxSweepAmino;
-}
-export interface MsgBroadcastTxSweepSDKType {
-  signedRefundTx: string;
-  signedSweepTx: string;
-  judgeAddress: string;
-}
-export interface MsgBroadcastTxSweepResponse {}
-export interface MsgBroadcastTxSweepResponseProtoMsg {
-  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweepResponse";
-  value: Uint8Array;
-}
-export interface MsgBroadcastTxSweepResponseAmino {}
-export interface MsgBroadcastTxSweepResponseAminoMsg {
-  type: "/twilightproject.nyks.bridge.MsgBroadcastTxSweepResponse";
-  value: MsgBroadcastTxSweepResponseAmino;
-}
-export interface MsgBroadcastTxSweepResponseSDKType {}
 export interface MsgProposeRefundHash {
   refundHash: string;
   judgeAddress: string;
@@ -458,7 +303,7 @@ export interface MsgProposeRefundHashResponseAminoMsg {
 export interface MsgProposeRefundHashResponseSDKType {}
 export interface MsgConfirmBtcWithdraw {
   txHash: string;
-  height: Long;
+  height: bigint;
   hash: string;
   judgeAddress: string;
 }
@@ -478,7 +323,7 @@ export interface MsgConfirmBtcWithdrawAminoMsg {
 }
 export interface MsgConfirmBtcWithdrawSDKType {
   txHash: string;
-  height: Long;
+  height: bigint;
   hash: string;
   judgeAddress: string;
 }
@@ -493,25 +338,382 @@ export interface MsgConfirmBtcWithdrawResponseAminoMsg {
   value: MsgConfirmBtcWithdrawResponseAmino;
 }
 export interface MsgConfirmBtcWithdrawResponseSDKType {}
+/**
+ * Sweep messages in order
+ * 1. MsgProposeSweepAddress
+ */
+export interface MsgProposeSweepAddress {
+  btcAddress: string;
+  btcScript: string;
+  reserveId: bigint;
+  roundId: bigint;
+  judgeAddress: string;
+}
+export interface MsgProposeSweepAddressProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddress";
+  value: Uint8Array;
+}
+/**
+ * Sweep messages in order
+ * 1. MsgProposeSweepAddress
+ */
+export interface MsgProposeSweepAddressAmino {
+  btcAddress: string;
+  btcScript: string;
+  reserveId: string;
+  roundId: string;
+  judgeAddress: string;
+}
+export interface MsgProposeSweepAddressAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgProposeSweepAddress";
+  value: MsgProposeSweepAddressAmino;
+}
+/**
+ * Sweep messages in order
+ * 1. MsgProposeSweepAddress
+ */
+export interface MsgProposeSweepAddressSDKType {
+  btcAddress: string;
+  btcScript: string;
+  reserveId: bigint;
+  roundId: bigint;
+  judgeAddress: string;
+}
+export interface MsgProposeSweepAddressResponse {}
+export interface MsgProposeSweepAddressResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddressResponse";
+  value: Uint8Array;
+}
+export interface MsgProposeSweepAddressResponseAmino {}
+export interface MsgProposeSweepAddressResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgProposeSweepAddressResponse";
+  value: MsgProposeSweepAddressResponseAmino;
+}
+export interface MsgProposeSweepAddressResponseSDKType {}
+/** 2. MsgUnsignedTxSweep */
+export interface MsgUnsignedTxSweep {
+  txId: string;
+  btcUnsignedSweepTx: string;
+  reserveId: bigint;
+  roundId: bigint;
+  judgeAddress: string;
+}
+export interface MsgUnsignedTxSweepProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep";
+  value: Uint8Array;
+}
+/** 2. MsgUnsignedTxSweep */
+export interface MsgUnsignedTxSweepAmino {
+  txId: string;
+  btcUnsignedSweepTx: string;
+  reserveId: string;
+  roundId: string;
+  judgeAddress: string;
+}
+export interface MsgUnsignedTxSweepAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep";
+  value: MsgUnsignedTxSweepAmino;
+}
+/** 2. MsgUnsignedTxSweep */
+export interface MsgUnsignedTxSweepSDKType {
+  txId: string;
+  btcUnsignedSweepTx: string;
+  reserveId: bigint;
+  roundId: bigint;
+  judgeAddress: string;
+}
+export interface MsgUnsignedTxSweepResponse {}
+export interface MsgUnsignedTxSweepResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweepResponse";
+  value: Uint8Array;
+}
+export interface MsgUnsignedTxSweepResponseAmino {}
+export interface MsgUnsignedTxSweepResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgUnsignedTxSweepResponse";
+  value: MsgUnsignedTxSweepResponseAmino;
+}
+export interface MsgUnsignedTxSweepResponseSDKType {}
+/** 3. MsgUnsignedTxRefund */
+export interface MsgUnsignedTxRefund {
+  reserveId: bigint;
+  roundId: bigint;
+  btcUnsignedRefundTx: string;
+  judgeAddress: string;
+}
+export interface MsgUnsignedTxRefundProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund";
+  value: Uint8Array;
+}
+/** 3. MsgUnsignedTxRefund */
+export interface MsgUnsignedTxRefundAmino {
+  reserveId: string;
+  roundId: string;
+  btcUnsignedRefundTx: string;
+  judgeAddress: string;
+}
+export interface MsgUnsignedTxRefundAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund";
+  value: MsgUnsignedTxRefundAmino;
+}
+/** 3. MsgUnsignedTxRefund */
+export interface MsgUnsignedTxRefundSDKType {
+  reserveId: bigint;
+  roundId: bigint;
+  btcUnsignedRefundTx: string;
+  judgeAddress: string;
+}
+export interface MsgUnsignedTxRefundResponse {}
+export interface MsgUnsignedTxRefundResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefundResponse";
+  value: Uint8Array;
+}
+export interface MsgUnsignedTxRefundResponseAmino {}
+export interface MsgUnsignedTxRefundResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgUnsignedTxRefundResponse";
+  value: MsgUnsignedTxRefundResponseAmino;
+}
+export interface MsgUnsignedTxRefundResponseSDKType {}
+/** 4. MsgSignRefund */
+export interface MsgSignRefund {
+  reserveId: bigint;
+  roundId: bigint;
+  signerPublicKey: string;
+  refundSignature: string;
+  btcOracleAddress: string;
+}
+export interface MsgSignRefundProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignRefund";
+  value: Uint8Array;
+}
+/** 4. MsgSignRefund */
+export interface MsgSignRefundAmino {
+  reserveId: string;
+  roundId: string;
+  signerPublicKey: string;
+  refundSignature: string;
+  btcOracleAddress: string;
+}
+export interface MsgSignRefundAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgSignRefund";
+  value: MsgSignRefundAmino;
+}
+/** 4. MsgSignRefund */
+export interface MsgSignRefundSDKType {
+  reserveId: bigint;
+  roundId: bigint;
+  signerPublicKey: string;
+  refundSignature: string;
+  btcOracleAddress: string;
+}
+export interface MsgSignRefundResponse {}
+export interface MsgSignRefundResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignRefundResponse";
+  value: Uint8Array;
+}
+export interface MsgSignRefundResponseAmino {}
+export interface MsgSignRefundResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgSignRefundResponse";
+  value: MsgSignRefundResponseAmino;
+}
+export interface MsgSignRefundResponseSDKType {}
+/** 5. MsgSignSweep */
+export interface MsgSignSweep {
+  reserveId: bigint;
+  roundId: bigint;
+  signerPublicKey: string;
+  sweepSignature: string[];
+  btcOracleAddress: string;
+}
+export interface MsgSignSweepProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignSweep";
+  value: Uint8Array;
+}
+/** 5. MsgSignSweep */
+export interface MsgSignSweepAmino {
+  reserveId: string;
+  roundId: string;
+  signerPublicKey: string;
+  sweepSignature: string[];
+  btcOracleAddress: string;
+}
+export interface MsgSignSweepAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgSignSweep";
+  value: MsgSignSweepAmino;
+}
+/** 5. MsgSignSweep */
+export interface MsgSignSweepSDKType {
+  reserveId: bigint;
+  roundId: bigint;
+  signerPublicKey: string;
+  sweepSignature: string[];
+  btcOracleAddress: string;
+}
+export interface MsgSignSweepResponse {}
+export interface MsgSignSweepResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignSweepResponse";
+  value: Uint8Array;
+}
+export interface MsgSignSweepResponseAmino {}
+export interface MsgSignSweepResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgSignSweepResponse";
+  value: MsgSignSweepResponseAmino;
+}
+export interface MsgSignSweepResponseSDKType {}
+/** 6. MsgBroadcastTxRefund */
+export interface MsgBroadcastTxRefund {
+  reserveId: bigint;
+  roundId: bigint;
+  signedRefundTx: string;
+  judgeAddress: string;
+}
+export interface MsgBroadcastTxRefundProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund";
+  value: Uint8Array;
+}
+/** 6. MsgBroadcastTxRefund */
+export interface MsgBroadcastTxRefundAmino {
+  reserveId: string;
+  roundId: string;
+  signedRefundTx: string;
+  judgeAddress: string;
+}
+export interface MsgBroadcastTxRefundAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund";
+  value: MsgBroadcastTxRefundAmino;
+}
+/** 6. MsgBroadcastTxRefund */
+export interface MsgBroadcastTxRefundSDKType {
+  reserveId: bigint;
+  roundId: bigint;
+  signedRefundTx: string;
+  judgeAddress: string;
+}
+export interface MsgBroadcastTxRefundResponse {}
+export interface MsgBroadcastTxRefundResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefundResponse";
+  value: Uint8Array;
+}
+export interface MsgBroadcastTxRefundResponseAmino {}
+export interface MsgBroadcastTxRefundResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgBroadcastTxRefundResponse";
+  value: MsgBroadcastTxRefundResponseAmino;
+}
+export interface MsgBroadcastTxRefundResponseSDKType {}
+/** 7. MsgBroadcastTxSweep */
+export interface MsgBroadcastTxSweep {
+  reserveId: bigint;
+  roundId: bigint;
+  signedSweepTx: string;
+  judgeAddress: string;
+}
+export interface MsgBroadcastTxSweepProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweep";
+  value: Uint8Array;
+}
+/** 7. MsgBroadcastTxSweep */
+export interface MsgBroadcastTxSweepAmino {
+  reserveId: string;
+  roundId: string;
+  signedSweepTx: string;
+  judgeAddress: string;
+}
+export interface MsgBroadcastTxSweepAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgBroadcastTxSweep";
+  value: MsgBroadcastTxSweepAmino;
+}
+/** 7. MsgBroadcastTxSweep */
+export interface MsgBroadcastTxSweepSDKType {
+  reserveId: bigint;
+  roundId: bigint;
+  signedSweepTx: string;
+  judgeAddress: string;
+}
+export interface MsgBroadcastTxSweepResponse {}
+export interface MsgBroadcastTxSweepResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweepResponse";
+  value: Uint8Array;
+}
+export interface MsgBroadcastTxSweepResponseAmino {}
+export interface MsgBroadcastTxSweepResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgBroadcastTxSweepResponse";
+  value: MsgBroadcastTxSweepResponseAmino;
+}
+export interface MsgBroadcastTxSweepResponseSDKType {}
+/** 8. MsgSweepProposal */
+export interface MsgSweepProposal {
+  reserveId: bigint;
+  newReserveAddress: string;
+  judgeAddress: string;
+  BtcBlockNumber: bigint;
+  btcRelayCapacityValue: bigint;
+  btcTxHash: string;
+  UnlockHeight: bigint;
+  roundId: bigint;
+  withdrawIdentifiers: string[];
+}
+export interface MsgSweepProposalProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposal";
+  value: Uint8Array;
+}
+/** 8. MsgSweepProposal */
+export interface MsgSweepProposalAmino {
+  reserveId: string;
+  newReserveAddress: string;
+  judgeAddress: string;
+  BtcBlockNumber: string;
+  btcRelayCapacityValue: string;
+  btcTxHash: string;
+  UnlockHeight: string;
+  roundId: string;
+  withdrawIdentifiers: string[];
+}
+export interface MsgSweepProposalAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgSweepProposal";
+  value: MsgSweepProposalAmino;
+}
+/** 8. MsgSweepProposal */
+export interface MsgSweepProposalSDKType {
+  reserveId: bigint;
+  newReserveAddress: string;
+  judgeAddress: string;
+  BtcBlockNumber: bigint;
+  btcRelayCapacityValue: bigint;
+  btcTxHash: string;
+  UnlockHeight: bigint;
+  roundId: bigint;
+  withdrawIdentifiers: string[];
+}
+export interface MsgSweepProposalResponse {}
+export interface MsgSweepProposalResponseProtoMsg {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposalResponse";
+  value: Uint8Array;
+}
+export interface MsgSweepProposalResponseAmino {}
+export interface MsgSweepProposalResponseAminoMsg {
+  type: "/twilightproject.nyks.bridge.MsgSweepProposalResponse";
+  value: MsgSweepProposalResponseAmino;
+}
+export interface MsgSweepProposalResponseSDKType {}
 function createBaseMsgConfirmBtcDeposit(): MsgConfirmBtcDeposit {
   return {
     reserveAddress: "",
-    depositAmount: Long.UZERO,
-    height: Long.UZERO,
+    depositAmount: BigInt(0),
+    height: BigInt(0),
     hash: "",
     twilightDepositAddress: "",
     oracleAddress: ""
   };
 }
 export const MsgConfirmBtcDeposit = {
-  encode(message: MsgConfirmBtcDeposit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcDeposit",
+  encode(message: MsgConfirmBtcDeposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.reserveAddress !== "") {
       writer.uint32(10).string(message.reserveAddress);
     }
-    if (!message.depositAmount.isZero()) {
+    if (message.depositAmount !== BigInt(0)) {
       writer.uint32(16).uint64(message.depositAmount);
     }
-    if (!message.height.isZero()) {
+    if (message.height !== BigInt(0)) {
       writer.uint32(24).uint64(message.height);
     }
     if (message.hash !== "") {
@@ -525,8 +727,8 @@ export const MsgConfirmBtcDeposit = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgConfirmBtcDeposit {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgConfirmBtcDeposit {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConfirmBtcDeposit();
     while (reader.pos < end) {
@@ -536,10 +738,10 @@ export const MsgConfirmBtcDeposit = {
           message.reserveAddress = reader.string();
           break;
         case 2:
-          message.depositAmount = (reader.uint64() as Long);
+          message.depositAmount = reader.uint64();
           break;
         case 3:
-          message.height = (reader.uint64() as Long);
+          message.height = reader.uint64();
           break;
         case 4:
           message.hash = reader.string();
@@ -557,11 +759,11 @@ export const MsgConfirmBtcDeposit = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgConfirmBtcDeposit>): MsgConfirmBtcDeposit {
+  fromPartial(object: Partial<MsgConfirmBtcDeposit>): MsgConfirmBtcDeposit {
     const message = createBaseMsgConfirmBtcDeposit();
     message.reserveAddress = object.reserveAddress ?? "";
-    message.depositAmount = object.depositAmount !== undefined && object.depositAmount !== null ? Long.fromValue(object.depositAmount) : Long.UZERO;
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
+    message.depositAmount = object.depositAmount !== undefined && object.depositAmount !== null ? BigInt(object.depositAmount.toString()) : BigInt(0);
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.hash = object.hash ?? "";
     message.twilightDepositAddress = object.twilightDepositAddress ?? "";
     message.oracleAddress = object.oracleAddress ?? "";
@@ -570,8 +772,8 @@ export const MsgConfirmBtcDeposit = {
   fromAmino(object: MsgConfirmBtcDepositAmino): MsgConfirmBtcDeposit {
     return {
       reserveAddress: object.reserveAddress,
-      depositAmount: Long.fromString(object.depositAmount),
-      height: Long.fromString(object.height),
+      depositAmount: BigInt(object.depositAmount),
+      height: BigInt(object.height),
       hash: object.hash,
       twilightDepositAddress: object.twilightDepositAddress,
       oracleAddress: object.oracleAddress
@@ -609,14 +811,15 @@ function createBaseMsgConfirmBtcDepositResponse(): MsgConfirmBtcDepositResponse 
   };
 }
 export const MsgConfirmBtcDepositResponse = {
-  encode(message: MsgConfirmBtcDepositResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcDepositResponse",
+  encode(message: MsgConfirmBtcDepositResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.twilightDepositAddress !== "") {
       writer.uint32(10).string(message.twilightDepositAddress);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgConfirmBtcDepositResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgConfirmBtcDepositResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConfirmBtcDepositResponse();
     while (reader.pos < end) {
@@ -632,7 +835,7 @@ export const MsgConfirmBtcDepositResponse = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgConfirmBtcDepositResponse>): MsgConfirmBtcDepositResponse {
+  fromPartial(object: Partial<MsgConfirmBtcDepositResponse>): MsgConfirmBtcDepositResponse {
     const message = createBaseMsgConfirmBtcDepositResponse();
     message.twilightDepositAddress = object.twilightDepositAddress ?? "";
     return message;
@@ -665,32 +868,47 @@ export const MsgConfirmBtcDepositResponse = {
 };
 function createBaseMsgRegisterBtcDepositAddress(): MsgRegisterBtcDepositAddress {
   return {
-    depositAddress: "",
-    twilightDepositAddress: ""
+    btcDepositAddress: "",
+    btcSatoshiTestAmount: BigInt(0),
+    twilightStakingAmount: BigInt(0),
+    twilightAddress: ""
   };
 }
 export const MsgRegisterBtcDepositAddress = {
-  encode(message: MsgRegisterBtcDepositAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.depositAddress !== "") {
-      writer.uint32(10).string(message.depositAddress);
+  typeUrl: "/twilightproject.nyks.bridge.MsgRegisterBtcDepositAddress",
+  encode(message: MsgRegisterBtcDepositAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.btcDepositAddress !== "") {
+      writer.uint32(10).string(message.btcDepositAddress);
     }
-    if (message.twilightDepositAddress !== "") {
-      writer.uint32(18).string(message.twilightDepositAddress);
+    if (message.btcSatoshiTestAmount !== BigInt(0)) {
+      writer.uint32(16).uint64(message.btcSatoshiTestAmount);
+    }
+    if (message.twilightStakingAmount !== BigInt(0)) {
+      writer.uint32(24).uint64(message.twilightStakingAmount);
+    }
+    if (message.twilightAddress !== "") {
+      writer.uint32(34).string(message.twilightAddress);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterBtcDepositAddress {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterBtcDepositAddress {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRegisterBtcDepositAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.depositAddress = reader.string();
+          message.btcDepositAddress = reader.string();
           break;
         case 2:
-          message.twilightDepositAddress = reader.string();
+          message.btcSatoshiTestAmount = reader.uint64();
+          break;
+        case 3:
+          message.twilightStakingAmount = reader.uint64();
+          break;
+        case 4:
+          message.twilightAddress = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -699,22 +917,28 @@ export const MsgRegisterBtcDepositAddress = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgRegisterBtcDepositAddress>): MsgRegisterBtcDepositAddress {
+  fromPartial(object: Partial<MsgRegisterBtcDepositAddress>): MsgRegisterBtcDepositAddress {
     const message = createBaseMsgRegisterBtcDepositAddress();
-    message.depositAddress = object.depositAddress ?? "";
-    message.twilightDepositAddress = object.twilightDepositAddress ?? "";
+    message.btcDepositAddress = object.btcDepositAddress ?? "";
+    message.btcSatoshiTestAmount = object.btcSatoshiTestAmount !== undefined && object.btcSatoshiTestAmount !== null ? BigInt(object.btcSatoshiTestAmount.toString()) : BigInt(0);
+    message.twilightStakingAmount = object.twilightStakingAmount !== undefined && object.twilightStakingAmount !== null ? BigInt(object.twilightStakingAmount.toString()) : BigInt(0);
+    message.twilightAddress = object.twilightAddress ?? "";
     return message;
   },
   fromAmino(object: MsgRegisterBtcDepositAddressAmino): MsgRegisterBtcDepositAddress {
     return {
-      depositAddress: object.depositAddress,
-      twilightDepositAddress: object.twilightDepositAddress
+      btcDepositAddress: object.btcDepositAddress,
+      btcSatoshiTestAmount: BigInt(object.btcSatoshiTestAmount),
+      twilightStakingAmount: BigInt(object.twilightStakingAmount),
+      twilightAddress: object.twilightAddress
     };
   },
   toAmino(message: MsgRegisterBtcDepositAddress): MsgRegisterBtcDepositAddressAmino {
     const obj: any = {};
-    obj.depositAddress = message.depositAddress;
-    obj.twilightDepositAddress = message.twilightDepositAddress;
+    obj.btcDepositAddress = message.btcDepositAddress;
+    obj.btcSatoshiTestAmount = message.btcSatoshiTestAmount ? message.btcSatoshiTestAmount.toString() : undefined;
+    obj.twilightStakingAmount = message.twilightStakingAmount ? message.twilightStakingAmount.toString() : undefined;
+    obj.twilightAddress = message.twilightAddress;
     return obj;
   },
   fromAminoMsg(object: MsgRegisterBtcDepositAddressAminoMsg): MsgRegisterBtcDepositAddress {
@@ -737,11 +961,12 @@ function createBaseMsgRegisterBtcDepositAddressResponse(): MsgRegisterBtcDeposit
   return {};
 }
 export const MsgRegisterBtcDepositAddressResponse = {
-  encode(_: MsgRegisterBtcDepositAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgRegisterBtcDepositAddressResponse",
+  encode(_: MsgRegisterBtcDepositAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterBtcDepositAddressResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterBtcDepositAddressResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRegisterBtcDepositAddressResponse();
     while (reader.pos < end) {
@@ -754,7 +979,7 @@ export const MsgRegisterBtcDepositAddressResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgRegisterBtcDepositAddressResponse>): MsgRegisterBtcDepositAddressResponse {
+  fromPartial(_: Partial<MsgRegisterBtcDepositAddressResponse>): MsgRegisterBtcDepositAddressResponse {
     const message = createBaseMsgRegisterBtcDepositAddressResponse();
     return message;
   },
@@ -789,7 +1014,8 @@ function createBaseMsgRegisterReserveAddress(): MsgRegisterReserveAddress {
   };
 }
 export const MsgRegisterReserveAddress = {
-  encode(message: MsgRegisterReserveAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgRegisterReserveAddress",
+  encode(message: MsgRegisterReserveAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.reserveScript !== "") {
       writer.uint32(10).string(message.reserveScript);
     }
@@ -801,8 +1027,8 @@ export const MsgRegisterReserveAddress = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterReserveAddress {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterReserveAddress {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRegisterReserveAddress();
     while (reader.pos < end) {
@@ -824,7 +1050,7 @@ export const MsgRegisterReserveAddress = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgRegisterReserveAddress>): MsgRegisterReserveAddress {
+  fromPartial(object: Partial<MsgRegisterReserveAddress>): MsgRegisterReserveAddress {
     const message = createBaseMsgRegisterReserveAddress();
     message.reserveScript = object.reserveScript ?? "";
     message.reserveAddress = object.reserveAddress ?? "";
@@ -863,24 +1089,32 @@ export const MsgRegisterReserveAddress = {
 };
 function createBaseMsgRegisterReserveAddressResponse(): MsgRegisterReserveAddressResponse {
   return {
+    reserveId: "",
     reserveAddress: ""
   };
 }
 export const MsgRegisterReserveAddressResponse = {
-  encode(message: MsgRegisterReserveAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgRegisterReserveAddressResponse",
+  encode(message: MsgRegisterReserveAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.reserveId !== "") {
+      writer.uint32(10).string(message.reserveId);
+    }
     if (message.reserveAddress !== "") {
-      writer.uint32(10).string(message.reserveAddress);
+      writer.uint32(18).string(message.reserveAddress);
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterReserveAddressResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterReserveAddressResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRegisterReserveAddressResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.reserveId = reader.string();
+          break;
+        case 2:
           message.reserveAddress = reader.string();
           break;
         default:
@@ -890,18 +1124,21 @@ export const MsgRegisterReserveAddressResponse = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgRegisterReserveAddressResponse>): MsgRegisterReserveAddressResponse {
+  fromPartial(object: Partial<MsgRegisterReserveAddressResponse>): MsgRegisterReserveAddressResponse {
     const message = createBaseMsgRegisterReserveAddressResponse();
+    message.reserveId = object.reserveId ?? "";
     message.reserveAddress = object.reserveAddress ?? "";
     return message;
   },
   fromAmino(object: MsgRegisterReserveAddressResponseAmino): MsgRegisterReserveAddressResponse {
     return {
+      reserveId: object.reserveId,
       reserveAddress: object.reserveAddress
     };
   },
   toAmino(message: MsgRegisterReserveAddressResponse): MsgRegisterReserveAddressResponseAmino {
     const obj: any = {};
+    obj.reserveId = message.reserveId;
     obj.reserveAddress = message.reserveAddress;
     return obj;
   },
@@ -929,7 +1166,8 @@ function createBaseMsgRegisterJudge(): MsgRegisterJudge {
   };
 }
 export const MsgRegisterJudge = {
-  encode(message: MsgRegisterJudge, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgRegisterJudge",
+  encode(message: MsgRegisterJudge, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -941,8 +1179,8 @@ export const MsgRegisterJudge = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterJudge {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterJudge {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRegisterJudge();
     while (reader.pos < end) {
@@ -964,7 +1202,7 @@ export const MsgRegisterJudge = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgRegisterJudge>): MsgRegisterJudge {
+  fromPartial(object: Partial<MsgRegisterJudge>): MsgRegisterJudge {
     const message = createBaseMsgRegisterJudge();
     message.creator = object.creator ?? "";
     message.judgeAddress = object.judgeAddress ?? "";
@@ -1005,11 +1243,12 @@ function createBaseMsgRegisterJudgeResponse(): MsgRegisterJudgeResponse {
   return {};
 }
 export const MsgRegisterJudgeResponse = {
-  encode(_: MsgRegisterJudgeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgRegisterJudgeResponse",
+  encode(_: MsgRegisterJudgeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRegisterJudgeResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterJudgeResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRegisterJudgeResponse();
     while (reader.pos < end) {
@@ -1022,7 +1261,7 @@ export const MsgRegisterJudgeResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgRegisterJudgeResponse>): MsgRegisterJudgeResponse {
+  fromPartial(_: Partial<MsgRegisterJudgeResponse>): MsgRegisterJudgeResponse {
     const message = createBaseMsgRegisterJudgeResponse();
     return message;
   },
@@ -1053,19 +1292,20 @@ function createBaseMsgWithdrawBtcRequest(): MsgWithdrawBtcRequest {
   return {
     withdrawAddress: "",
     reserveAddress: "",
-    withdrawAmount: Long.UZERO,
+    withdrawAmount: BigInt(0),
     twilightAddress: ""
   };
 }
 export const MsgWithdrawBtcRequest = {
-  encode(message: MsgWithdrawBtcRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgWithdrawBtcRequest",
+  encode(message: MsgWithdrawBtcRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.withdrawAddress !== "") {
       writer.uint32(10).string(message.withdrawAddress);
     }
     if (message.reserveAddress !== "") {
       writer.uint32(18).string(message.reserveAddress);
     }
-    if (!message.withdrawAmount.isZero()) {
+    if (message.withdrawAmount !== BigInt(0)) {
       writer.uint32(24).uint64(message.withdrawAmount);
     }
     if (message.twilightAddress !== "") {
@@ -1073,8 +1313,8 @@ export const MsgWithdrawBtcRequest = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawBtcRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgWithdrawBtcRequest {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawBtcRequest();
     while (reader.pos < end) {
@@ -1087,7 +1327,7 @@ export const MsgWithdrawBtcRequest = {
           message.reserveAddress = reader.string();
           break;
         case 3:
-          message.withdrawAmount = (reader.uint64() as Long);
+          message.withdrawAmount = reader.uint64();
           break;
         case 4:
           message.twilightAddress = reader.string();
@@ -1099,11 +1339,11 @@ export const MsgWithdrawBtcRequest = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgWithdrawBtcRequest>): MsgWithdrawBtcRequest {
+  fromPartial(object: Partial<MsgWithdrawBtcRequest>): MsgWithdrawBtcRequest {
     const message = createBaseMsgWithdrawBtcRequest();
     message.withdrawAddress = object.withdrawAddress ?? "";
     message.reserveAddress = object.reserveAddress ?? "";
-    message.withdrawAmount = object.withdrawAmount !== undefined && object.withdrawAmount !== null ? Long.fromValue(object.withdrawAmount) : Long.UZERO;
+    message.withdrawAmount = object.withdrawAmount !== undefined && object.withdrawAmount !== null ? BigInt(object.withdrawAmount.toString()) : BigInt(0);
     message.twilightAddress = object.twilightAddress ?? "";
     return message;
   },
@@ -1111,7 +1351,7 @@ export const MsgWithdrawBtcRequest = {
     return {
       withdrawAddress: object.withdrawAddress,
       reserveAddress: object.reserveAddress,
-      withdrawAmount: Long.fromString(object.withdrawAmount),
+      withdrawAmount: BigInt(object.withdrawAmount),
       twilightAddress: object.twilightAddress
     };
   },
@@ -1143,11 +1383,12 @@ function createBaseMsgWithdrawBtcRequestResponse(): MsgWithdrawBtcRequestRespons
   return {};
 }
 export const MsgWithdrawBtcRequestResponse = {
-  encode(_: MsgWithdrawBtcRequestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgWithdrawBtcRequestResponse",
+  encode(_: MsgWithdrawBtcRequestResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawBtcRequestResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgWithdrawBtcRequestResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawBtcRequestResponse();
     while (reader.pos < end) {
@@ -1160,7 +1401,7 @@ export const MsgWithdrawBtcRequestResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgWithdrawBtcRequestResponse>): MsgWithdrawBtcRequestResponse {
+  fromPartial(_: Partial<MsgWithdrawBtcRequestResponse>): MsgWithdrawBtcRequestResponse {
     const message = createBaseMsgWithdrawBtcRequestResponse();
     return message;
   },
@@ -1187,204 +1428,6 @@ export const MsgWithdrawBtcRequestResponse = {
     };
   }
 };
-function createBaseMsgSweepProposal(): MsgSweepProposal {
-  return {
-    reserveId: Long.UZERO,
-    reserveAddress: "",
-    judgeAddress: "",
-    btcRelayCapacityValue: Long.UZERO,
-    totalValue: Long.UZERO,
-    privatePoolValue: Long.UZERO,
-    publicValue: Long.UZERO,
-    feePool: Long.UZERO,
-    btcRefundTx: "",
-    btcSweepTx: ""
-  };
-}
-export const MsgSweepProposal = {
-  encode(message: MsgSweepProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (!message.reserveId.isZero()) {
-      writer.uint32(8).uint64(message.reserveId);
-    }
-    if (message.reserveAddress !== "") {
-      writer.uint32(18).string(message.reserveAddress);
-    }
-    if (message.judgeAddress !== "") {
-      writer.uint32(26).string(message.judgeAddress);
-    }
-    if (!message.btcRelayCapacityValue.isZero()) {
-      writer.uint32(32).uint64(message.btcRelayCapacityValue);
-    }
-    if (!message.totalValue.isZero()) {
-      writer.uint32(40).uint64(message.totalValue);
-    }
-    if (!message.privatePoolValue.isZero()) {
-      writer.uint32(48).uint64(message.privatePoolValue);
-    }
-    if (!message.publicValue.isZero()) {
-      writer.uint32(56).uint64(message.publicValue);
-    }
-    if (!message.feePool.isZero()) {
-      writer.uint32(64).uint64(message.feePool);
-    }
-    if (message.btcRefundTx !== "") {
-      writer.uint32(74).string(message.btcRefundTx);
-    }
-    if (message.btcSweepTx !== "") {
-      writer.uint32(82).string(message.btcSweepTx);
-    }
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSweepProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSweepProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.reserveId = (reader.uint64() as Long);
-          break;
-        case 2:
-          message.reserveAddress = reader.string();
-          break;
-        case 3:
-          message.judgeAddress = reader.string();
-          break;
-        case 4:
-          message.btcRelayCapacityValue = (reader.uint64() as Long);
-          break;
-        case 5:
-          message.totalValue = (reader.uint64() as Long);
-          break;
-        case 6:
-          message.privatePoolValue = (reader.uint64() as Long);
-          break;
-        case 7:
-          message.publicValue = (reader.uint64() as Long);
-          break;
-        case 8:
-          message.feePool = (reader.uint64() as Long);
-          break;
-        case 9:
-          message.btcRefundTx = reader.string();
-          break;
-        case 10:
-          message.btcSweepTx = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgSweepProposal>): MsgSweepProposal {
-    const message = createBaseMsgSweepProposal();
-    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? Long.fromValue(object.reserveId) : Long.UZERO;
-    message.reserveAddress = object.reserveAddress ?? "";
-    message.judgeAddress = object.judgeAddress ?? "";
-    message.btcRelayCapacityValue = object.btcRelayCapacityValue !== undefined && object.btcRelayCapacityValue !== null ? Long.fromValue(object.btcRelayCapacityValue) : Long.UZERO;
-    message.totalValue = object.totalValue !== undefined && object.totalValue !== null ? Long.fromValue(object.totalValue) : Long.UZERO;
-    message.privatePoolValue = object.privatePoolValue !== undefined && object.privatePoolValue !== null ? Long.fromValue(object.privatePoolValue) : Long.UZERO;
-    message.publicValue = object.publicValue !== undefined && object.publicValue !== null ? Long.fromValue(object.publicValue) : Long.UZERO;
-    message.feePool = object.feePool !== undefined && object.feePool !== null ? Long.fromValue(object.feePool) : Long.UZERO;
-    message.btcRefundTx = object.btcRefundTx ?? "";
-    message.btcSweepTx = object.btcSweepTx ?? "";
-    return message;
-  },
-  fromAmino(object: MsgSweepProposalAmino): MsgSweepProposal {
-    return {
-      reserveId: Long.fromString(object.reserveId),
-      reserveAddress: object.reserveAddress,
-      judgeAddress: object.judgeAddress,
-      btcRelayCapacityValue: Long.fromString(object.btcRelayCapacityValue),
-      totalValue: Long.fromString(object.totalValue),
-      privatePoolValue: Long.fromString(object.privatePoolValue),
-      publicValue: Long.fromString(object.publicValue),
-      feePool: Long.fromString(object.feePool),
-      btcRefundTx: object.btcRefundTx,
-      btcSweepTx: object.btcSweepTx
-    };
-  },
-  toAmino(message: MsgSweepProposal): MsgSweepProposalAmino {
-    const obj: any = {};
-    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
-    obj.reserveAddress = message.reserveAddress;
-    obj.judgeAddress = message.judgeAddress;
-    obj.btcRelayCapacityValue = message.btcRelayCapacityValue ? message.btcRelayCapacityValue.toString() : undefined;
-    obj.totalValue = message.totalValue ? message.totalValue.toString() : undefined;
-    obj.privatePoolValue = message.privatePoolValue ? message.privatePoolValue.toString() : undefined;
-    obj.publicValue = message.publicValue ? message.publicValue.toString() : undefined;
-    obj.feePool = message.feePool ? message.feePool.toString() : undefined;
-    obj.btcRefundTx = message.btcRefundTx;
-    obj.btcSweepTx = message.btcSweepTx;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSweepProposalAminoMsg): MsgSweepProposal {
-    return MsgSweepProposal.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgSweepProposalProtoMsg): MsgSweepProposal {
-    return MsgSweepProposal.decode(message.value);
-  },
-  toProto(message: MsgSweepProposal): Uint8Array {
-    return MsgSweepProposal.encode(message).finish();
-  },
-  toProtoMsg(message: MsgSweepProposal): MsgSweepProposalProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposal",
-      value: MsgSweepProposal.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgSweepProposalResponse(): MsgSweepProposalResponse {
-  return {};
-}
-export const MsgSweepProposalResponse = {
-  encode(_: MsgSweepProposalResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSweepProposalResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSweepProposalResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(_: DeepPartial<MsgSweepProposalResponse>): MsgSweepProposalResponse {
-    const message = createBaseMsgSweepProposalResponse();
-    return message;
-  },
-  fromAmino(_: MsgSweepProposalResponseAmino): MsgSweepProposalResponse {
-    return {};
-  },
-  toAmino(_: MsgSweepProposalResponse): MsgSweepProposalResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgSweepProposalResponseAminoMsg): MsgSweepProposalResponse {
-    return MsgSweepProposalResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgSweepProposalResponseProtoMsg): MsgSweepProposalResponse {
-    return MsgSweepProposalResponse.decode(message.value);
-  },
-  toProto(message: MsgSweepProposalResponse): Uint8Array {
-    return MsgSweepProposalResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgSweepProposalResponse): MsgSweepProposalResponseProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposalResponse",
-      value: MsgSweepProposalResponse.encode(message).finish()
-    };
-  }
-};
 function createBaseMsgWithdrawTxSigned(): MsgWithdrawTxSigned {
   return {
     creator: "",
@@ -1393,7 +1436,8 @@ function createBaseMsgWithdrawTxSigned(): MsgWithdrawTxSigned {
   };
 }
 export const MsgWithdrawTxSigned = {
-  encode(message: MsgWithdrawTxSigned, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgWithdrawTxSigned",
+  encode(message: MsgWithdrawTxSigned, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -1405,8 +1449,8 @@ export const MsgWithdrawTxSigned = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawTxSigned {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgWithdrawTxSigned {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawTxSigned();
     while (reader.pos < end) {
@@ -1428,7 +1472,7 @@ export const MsgWithdrawTxSigned = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgWithdrawTxSigned>): MsgWithdrawTxSigned {
+  fromPartial(object: Partial<MsgWithdrawTxSigned>): MsgWithdrawTxSigned {
     const message = createBaseMsgWithdrawTxSigned();
     message.creator = object.creator ?? "";
     message.validatorAddress = object.validatorAddress ?? "";
@@ -1469,11 +1513,12 @@ function createBaseMsgWithdrawTxSignedResponse(): MsgWithdrawTxSignedResponse {
   return {};
 }
 export const MsgWithdrawTxSignedResponse = {
-  encode(_: MsgWithdrawTxSignedResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgWithdrawTxSignedResponse",
+  encode(_: MsgWithdrawTxSignedResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawTxSignedResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgWithdrawTxSignedResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawTxSignedResponse();
     while (reader.pos < end) {
@@ -1486,7 +1531,7 @@ export const MsgWithdrawTxSignedResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgWithdrawTxSignedResponse>): MsgWithdrawTxSignedResponse {
+  fromPartial(_: Partial<MsgWithdrawTxSignedResponse>): MsgWithdrawTxSignedResponse {
     const message = createBaseMsgWithdrawTxSignedResponse();
     return message;
   },
@@ -1521,7 +1566,8 @@ function createBaseMsgWithdrawTxFinal(): MsgWithdrawTxFinal {
   };
 }
 export const MsgWithdrawTxFinal = {
-  encode(message: MsgWithdrawTxFinal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgWithdrawTxFinal",
+  encode(message: MsgWithdrawTxFinal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -1533,8 +1579,8 @@ export const MsgWithdrawTxFinal = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawTxFinal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgWithdrawTxFinal {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawTxFinal();
     while (reader.pos < end) {
@@ -1556,7 +1602,7 @@ export const MsgWithdrawTxFinal = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgWithdrawTxFinal>): MsgWithdrawTxFinal {
+  fromPartial(object: Partial<MsgWithdrawTxFinal>): MsgWithdrawTxFinal {
     const message = createBaseMsgWithdrawTxFinal();
     message.creator = object.creator ?? "";
     message.judgeAddress = object.judgeAddress ?? "";
@@ -1597,11 +1643,12 @@ function createBaseMsgWithdrawTxFinalResponse(): MsgWithdrawTxFinalResponse {
   return {};
 }
 export const MsgWithdrawTxFinalResponse = {
-  encode(_: MsgWithdrawTxFinalResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgWithdrawTxFinalResponse",
+  encode(_: MsgWithdrawTxFinalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawTxFinalResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgWithdrawTxFinalResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawTxFinalResponse();
     while (reader.pos < end) {
@@ -1614,7 +1661,7 @@ export const MsgWithdrawTxFinalResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgWithdrawTxFinalResponse>): MsgWithdrawTxFinalResponse {
+  fromPartial(_: Partial<MsgWithdrawTxFinalResponse>): MsgWithdrawTxFinalResponse {
     const message = createBaseMsgWithdrawTxFinalResponse();
     return message;
   },
@@ -1641,410 +1688,6 @@ export const MsgWithdrawTxFinalResponse = {
     };
   }
 };
-function createBaseMsgSignRefund(): MsgSignRefund {
-  return {
-    reserveAddress: "",
-    signerAddress: "",
-    refundSignature: "",
-    btcOracleAddress: ""
-  };
-}
-export const MsgSignRefund = {
-  encode(message: MsgSignRefund, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.reserveAddress !== "") {
-      writer.uint32(10).string(message.reserveAddress);
-    }
-    if (message.signerAddress !== "") {
-      writer.uint32(18).string(message.signerAddress);
-    }
-    if (message.refundSignature !== "") {
-      writer.uint32(26).string(message.refundSignature);
-    }
-    if (message.btcOracleAddress !== "") {
-      writer.uint32(34).string(message.btcOracleAddress);
-    }
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSignRefund {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSignRefund();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.reserveAddress = reader.string();
-          break;
-        case 2:
-          message.signerAddress = reader.string();
-          break;
-        case 3:
-          message.refundSignature = reader.string();
-          break;
-        case 4:
-          message.btcOracleAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgSignRefund>): MsgSignRefund {
-    const message = createBaseMsgSignRefund();
-    message.reserveAddress = object.reserveAddress ?? "";
-    message.signerAddress = object.signerAddress ?? "";
-    message.refundSignature = object.refundSignature ?? "";
-    message.btcOracleAddress = object.btcOracleAddress ?? "";
-    return message;
-  },
-  fromAmino(object: MsgSignRefundAmino): MsgSignRefund {
-    return {
-      reserveAddress: object.reserveAddress,
-      signerAddress: object.signerAddress,
-      refundSignature: object.refundSignature,
-      btcOracleAddress: object.btcOracleAddress
-    };
-  },
-  toAmino(message: MsgSignRefund): MsgSignRefundAmino {
-    const obj: any = {};
-    obj.reserveAddress = message.reserveAddress;
-    obj.signerAddress = message.signerAddress;
-    obj.refundSignature = message.refundSignature;
-    obj.btcOracleAddress = message.btcOracleAddress;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSignRefundAminoMsg): MsgSignRefund {
-    return MsgSignRefund.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgSignRefundProtoMsg): MsgSignRefund {
-    return MsgSignRefund.decode(message.value);
-  },
-  toProto(message: MsgSignRefund): Uint8Array {
-    return MsgSignRefund.encode(message).finish();
-  },
-  toProtoMsg(message: MsgSignRefund): MsgSignRefundProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgSignRefund",
-      value: MsgSignRefund.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgSignRefundResponse(): MsgSignRefundResponse {
-  return {};
-}
-export const MsgSignRefundResponse = {
-  encode(_: MsgSignRefundResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSignRefundResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSignRefundResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(_: DeepPartial<MsgSignRefundResponse>): MsgSignRefundResponse {
-    const message = createBaseMsgSignRefundResponse();
-    return message;
-  },
-  fromAmino(_: MsgSignRefundResponseAmino): MsgSignRefundResponse {
-    return {};
-  },
-  toAmino(_: MsgSignRefundResponse): MsgSignRefundResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgSignRefundResponseAminoMsg): MsgSignRefundResponse {
-    return MsgSignRefundResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgSignRefundResponseProtoMsg): MsgSignRefundResponse {
-    return MsgSignRefundResponse.decode(message.value);
-  },
-  toProto(message: MsgSignRefundResponse): Uint8Array {
-    return MsgSignRefundResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgSignRefundResponse): MsgSignRefundResponseProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgSignRefundResponse",
-      value: MsgSignRefundResponse.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgSignSweep(): MsgSignSweep {
-  return {
-    reserveAddress: "",
-    signerAddress: "",
-    sweepSignature: "",
-    btcOracleAddress: ""
-  };
-}
-export const MsgSignSweep = {
-  encode(message: MsgSignSweep, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.reserveAddress !== "") {
-      writer.uint32(10).string(message.reserveAddress);
-    }
-    if (message.signerAddress !== "") {
-      writer.uint32(18).string(message.signerAddress);
-    }
-    if (message.sweepSignature !== "") {
-      writer.uint32(26).string(message.sweepSignature);
-    }
-    if (message.btcOracleAddress !== "") {
-      writer.uint32(34).string(message.btcOracleAddress);
-    }
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSignSweep {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSignSweep();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.reserveAddress = reader.string();
-          break;
-        case 2:
-          message.signerAddress = reader.string();
-          break;
-        case 3:
-          message.sweepSignature = reader.string();
-          break;
-        case 4:
-          message.btcOracleAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgSignSweep>): MsgSignSweep {
-    const message = createBaseMsgSignSweep();
-    message.reserveAddress = object.reserveAddress ?? "";
-    message.signerAddress = object.signerAddress ?? "";
-    message.sweepSignature = object.sweepSignature ?? "";
-    message.btcOracleAddress = object.btcOracleAddress ?? "";
-    return message;
-  },
-  fromAmino(object: MsgSignSweepAmino): MsgSignSweep {
-    return {
-      reserveAddress: object.reserveAddress,
-      signerAddress: object.signerAddress,
-      sweepSignature: object.sweepSignature,
-      btcOracleAddress: object.btcOracleAddress
-    };
-  },
-  toAmino(message: MsgSignSweep): MsgSignSweepAmino {
-    const obj: any = {};
-    obj.reserveAddress = message.reserveAddress;
-    obj.signerAddress = message.signerAddress;
-    obj.sweepSignature = message.sweepSignature;
-    obj.btcOracleAddress = message.btcOracleAddress;
-    return obj;
-  },
-  fromAminoMsg(object: MsgSignSweepAminoMsg): MsgSignSweep {
-    return MsgSignSweep.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgSignSweepProtoMsg): MsgSignSweep {
-    return MsgSignSweep.decode(message.value);
-  },
-  toProto(message: MsgSignSweep): Uint8Array {
-    return MsgSignSweep.encode(message).finish();
-  },
-  toProtoMsg(message: MsgSignSweep): MsgSignSweepProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgSignSweep",
-      value: MsgSignSweep.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgSignSweepResponse(): MsgSignSweepResponse {
-  return {};
-}
-export const MsgSignSweepResponse = {
-  encode(_: MsgSignSweepResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSignSweepResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSignSweepResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(_: DeepPartial<MsgSignSweepResponse>): MsgSignSweepResponse {
-    const message = createBaseMsgSignSweepResponse();
-    return message;
-  },
-  fromAmino(_: MsgSignSweepResponseAmino): MsgSignSweepResponse {
-    return {};
-  },
-  toAmino(_: MsgSignSweepResponse): MsgSignSweepResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgSignSweepResponseAminoMsg): MsgSignSweepResponse {
-    return MsgSignSweepResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgSignSweepResponseProtoMsg): MsgSignSweepResponse {
-    return MsgSignSweepResponse.decode(message.value);
-  },
-  toProto(message: MsgSignSweepResponse): Uint8Array {
-    return MsgSignSweepResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgSignSweepResponse): MsgSignSweepResponseProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgSignSweepResponse",
-      value: MsgSignSweepResponse.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgBroadcastTxSweep(): MsgBroadcastTxSweep {
-  return {
-    signedRefundTx: "",
-    signedSweepTx: "",
-    judgeAddress: ""
-  };
-}
-export const MsgBroadcastTxSweep = {
-  encode(message: MsgBroadcastTxSweep, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.signedRefundTx !== "") {
-      writer.uint32(10).string(message.signedRefundTx);
-    }
-    if (message.signedSweepTx !== "") {
-      writer.uint32(18).string(message.signedSweepTx);
-    }
-    if (message.judgeAddress !== "") {
-      writer.uint32(26).string(message.judgeAddress);
-    }
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgBroadcastTxSweep {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgBroadcastTxSweep();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.signedRefundTx = reader.string();
-          break;
-        case 2:
-          message.signedSweepTx = reader.string();
-          break;
-        case 3:
-          message.judgeAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<MsgBroadcastTxSweep>): MsgBroadcastTxSweep {
-    const message = createBaseMsgBroadcastTxSweep();
-    message.signedRefundTx = object.signedRefundTx ?? "";
-    message.signedSweepTx = object.signedSweepTx ?? "";
-    message.judgeAddress = object.judgeAddress ?? "";
-    return message;
-  },
-  fromAmino(object: MsgBroadcastTxSweepAmino): MsgBroadcastTxSweep {
-    return {
-      signedRefundTx: object.signedRefundTx,
-      signedSweepTx: object.signedSweepTx,
-      judgeAddress: object.judgeAddress
-    };
-  },
-  toAmino(message: MsgBroadcastTxSweep): MsgBroadcastTxSweepAmino {
-    const obj: any = {};
-    obj.signedRefundTx = message.signedRefundTx;
-    obj.signedSweepTx = message.signedSweepTx;
-    obj.judgeAddress = message.judgeAddress;
-    return obj;
-  },
-  fromAminoMsg(object: MsgBroadcastTxSweepAminoMsg): MsgBroadcastTxSweep {
-    return MsgBroadcastTxSweep.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgBroadcastTxSweepProtoMsg): MsgBroadcastTxSweep {
-    return MsgBroadcastTxSweep.decode(message.value);
-  },
-  toProto(message: MsgBroadcastTxSweep): Uint8Array {
-    return MsgBroadcastTxSweep.encode(message).finish();
-  },
-  toProtoMsg(message: MsgBroadcastTxSweep): MsgBroadcastTxSweepProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweep",
-      value: MsgBroadcastTxSweep.encode(message).finish()
-    };
-  }
-};
-function createBaseMsgBroadcastTxSweepResponse(): MsgBroadcastTxSweepResponse {
-  return {};
-}
-export const MsgBroadcastTxSweepResponse = {
-  encode(_: MsgBroadcastTxSweepResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    return writer;
-  },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgBroadcastTxSweepResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgBroadcastTxSweepResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromPartial(_: DeepPartial<MsgBroadcastTxSweepResponse>): MsgBroadcastTxSweepResponse {
-    const message = createBaseMsgBroadcastTxSweepResponse();
-    return message;
-  },
-  fromAmino(_: MsgBroadcastTxSweepResponseAmino): MsgBroadcastTxSweepResponse {
-    return {};
-  },
-  toAmino(_: MsgBroadcastTxSweepResponse): MsgBroadcastTxSweepResponseAmino {
-    const obj: any = {};
-    return obj;
-  },
-  fromAminoMsg(object: MsgBroadcastTxSweepResponseAminoMsg): MsgBroadcastTxSweepResponse {
-    return MsgBroadcastTxSweepResponse.fromAmino(object.value);
-  },
-  fromProtoMsg(message: MsgBroadcastTxSweepResponseProtoMsg): MsgBroadcastTxSweepResponse {
-    return MsgBroadcastTxSweepResponse.decode(message.value);
-  },
-  toProto(message: MsgBroadcastTxSweepResponse): Uint8Array {
-    return MsgBroadcastTxSweepResponse.encode(message).finish();
-  },
-  toProtoMsg(message: MsgBroadcastTxSweepResponse): MsgBroadcastTxSweepResponseProtoMsg {
-    return {
-      typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweepResponse",
-      value: MsgBroadcastTxSweepResponse.encode(message).finish()
-    };
-  }
-};
 function createBaseMsgProposeRefundHash(): MsgProposeRefundHash {
   return {
     refundHash: "",
@@ -2052,7 +1695,8 @@ function createBaseMsgProposeRefundHash(): MsgProposeRefundHash {
   };
 }
 export const MsgProposeRefundHash = {
-  encode(message: MsgProposeRefundHash, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgProposeRefundHash",
+  encode(message: MsgProposeRefundHash, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.refundHash !== "") {
       writer.uint32(10).string(message.refundHash);
     }
@@ -2061,8 +1705,8 @@ export const MsgProposeRefundHash = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgProposeRefundHash {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgProposeRefundHash {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgProposeRefundHash();
     while (reader.pos < end) {
@@ -2081,7 +1725,7 @@ export const MsgProposeRefundHash = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgProposeRefundHash>): MsgProposeRefundHash {
+  fromPartial(object: Partial<MsgProposeRefundHash>): MsgProposeRefundHash {
     const message = createBaseMsgProposeRefundHash();
     message.refundHash = object.refundHash ?? "";
     message.judgeAddress = object.judgeAddress ?? "";
@@ -2119,11 +1763,12 @@ function createBaseMsgProposeRefundHashResponse(): MsgProposeRefundHashResponse 
   return {};
 }
 export const MsgProposeRefundHashResponse = {
-  encode(_: MsgProposeRefundHashResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgProposeRefundHashResponse",
+  encode(_: MsgProposeRefundHashResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgProposeRefundHashResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgProposeRefundHashResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgProposeRefundHashResponse();
     while (reader.pos < end) {
@@ -2136,7 +1781,7 @@ export const MsgProposeRefundHashResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgProposeRefundHashResponse>): MsgProposeRefundHashResponse {
+  fromPartial(_: Partial<MsgProposeRefundHashResponse>): MsgProposeRefundHashResponse {
     const message = createBaseMsgProposeRefundHashResponse();
     return message;
   },
@@ -2166,17 +1811,18 @@ export const MsgProposeRefundHashResponse = {
 function createBaseMsgConfirmBtcWithdraw(): MsgConfirmBtcWithdraw {
   return {
     txHash: "",
-    height: Long.UZERO,
+    height: BigInt(0),
     hash: "",
     judgeAddress: ""
   };
 }
 export const MsgConfirmBtcWithdraw = {
-  encode(message: MsgConfirmBtcWithdraw, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcWithdraw",
+  encode(message: MsgConfirmBtcWithdraw, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txHash !== "") {
       writer.uint32(10).string(message.txHash);
     }
-    if (!message.height.isZero()) {
+    if (message.height !== BigInt(0)) {
       writer.uint32(16).uint64(message.height);
     }
     if (message.hash !== "") {
@@ -2187,8 +1833,8 @@ export const MsgConfirmBtcWithdraw = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgConfirmBtcWithdraw {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgConfirmBtcWithdraw {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConfirmBtcWithdraw();
     while (reader.pos < end) {
@@ -2198,7 +1844,7 @@ export const MsgConfirmBtcWithdraw = {
           message.txHash = reader.string();
           break;
         case 2:
-          message.height = (reader.uint64() as Long);
+          message.height = reader.uint64();
           break;
         case 3:
           message.hash = reader.string();
@@ -2213,10 +1859,10 @@ export const MsgConfirmBtcWithdraw = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgConfirmBtcWithdraw>): MsgConfirmBtcWithdraw {
+  fromPartial(object: Partial<MsgConfirmBtcWithdraw>): MsgConfirmBtcWithdraw {
     const message = createBaseMsgConfirmBtcWithdraw();
     message.txHash = object.txHash ?? "";
-    message.height = object.height !== undefined && object.height !== null ? Long.fromValue(object.height) : Long.UZERO;
+    message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.hash = object.hash ?? "";
     message.judgeAddress = object.judgeAddress ?? "";
     return message;
@@ -2224,7 +1870,7 @@ export const MsgConfirmBtcWithdraw = {
   fromAmino(object: MsgConfirmBtcWithdrawAmino): MsgConfirmBtcWithdraw {
     return {
       txHash: object.txHash,
-      height: Long.fromString(object.height),
+      height: BigInt(object.height),
       hash: object.hash,
       judgeAddress: object.judgeAddress
     };
@@ -2257,11 +1903,12 @@ function createBaseMsgConfirmBtcWithdrawResponse(): MsgConfirmBtcWithdrawRespons
   return {};
 }
 export const MsgConfirmBtcWithdrawResponse = {
-  encode(_: MsgConfirmBtcWithdrawResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcWithdrawResponse",
+  encode(_: MsgConfirmBtcWithdrawResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgConfirmBtcWithdrawResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgConfirmBtcWithdrawResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConfirmBtcWithdrawResponse();
     while (reader.pos < end) {
@@ -2274,7 +1921,7 @@ export const MsgConfirmBtcWithdrawResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgConfirmBtcWithdrawResponse>): MsgConfirmBtcWithdrawResponse {
+  fromPartial(_: Partial<MsgConfirmBtcWithdrawResponse>): MsgConfirmBtcWithdrawResponse {
     const message = createBaseMsgConfirmBtcWithdrawResponse();
     return message;
   },
@@ -2298,6 +1945,1224 @@ export const MsgConfirmBtcWithdrawResponse = {
     return {
       typeUrl: "/twilightproject.nyks.bridge.MsgConfirmBtcWithdrawResponse",
       value: MsgConfirmBtcWithdrawResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgProposeSweepAddress(): MsgProposeSweepAddress {
+  return {
+    btcAddress: "",
+    btcScript: "",
+    reserveId: BigInt(0),
+    roundId: BigInt(0),
+    judgeAddress: ""
+  };
+}
+export const MsgProposeSweepAddress = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddress",
+  encode(message: MsgProposeSweepAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.btcAddress !== "") {
+      writer.uint32(10).string(message.btcAddress);
+    }
+    if (message.btcScript !== "") {
+      writer.uint32(18).string(message.btcScript);
+    }
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(24).uint64(message.reserveId);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(32).uint64(message.roundId);
+    }
+    if (message.judgeAddress !== "") {
+      writer.uint32(42).string(message.judgeAddress);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgProposeSweepAddress {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgProposeSweepAddress();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.btcAddress = reader.string();
+          break;
+        case 2:
+          message.btcScript = reader.string();
+          break;
+        case 3:
+          message.reserveId = reader.uint64();
+          break;
+        case 4:
+          message.roundId = reader.uint64();
+          break;
+        case 5:
+          message.judgeAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgProposeSweepAddress>): MsgProposeSweepAddress {
+    const message = createBaseMsgProposeSweepAddress();
+    message.btcAddress = object.btcAddress ?? "";
+    message.btcScript = object.btcScript ?? "";
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.judgeAddress = object.judgeAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgProposeSweepAddressAmino): MsgProposeSweepAddress {
+    return {
+      btcAddress: object.btcAddress,
+      btcScript: object.btcScript,
+      reserveId: BigInt(object.reserveId),
+      roundId: BigInt(object.roundId),
+      judgeAddress: object.judgeAddress
+    };
+  },
+  toAmino(message: MsgProposeSweepAddress): MsgProposeSweepAddressAmino {
+    const obj: any = {};
+    obj.btcAddress = message.btcAddress;
+    obj.btcScript = message.btcScript;
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    obj.judgeAddress = message.judgeAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgProposeSweepAddressAminoMsg): MsgProposeSweepAddress {
+    return MsgProposeSweepAddress.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgProposeSweepAddressProtoMsg): MsgProposeSweepAddress {
+    return MsgProposeSweepAddress.decode(message.value);
+  },
+  toProto(message: MsgProposeSweepAddress): Uint8Array {
+    return MsgProposeSweepAddress.encode(message).finish();
+  },
+  toProtoMsg(message: MsgProposeSweepAddress): MsgProposeSweepAddressProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddress",
+      value: MsgProposeSweepAddress.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgProposeSweepAddressResponse(): MsgProposeSweepAddressResponse {
+  return {};
+}
+export const MsgProposeSweepAddressResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddressResponse",
+  encode(_: MsgProposeSweepAddressResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgProposeSweepAddressResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgProposeSweepAddressResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgProposeSweepAddressResponse>): MsgProposeSweepAddressResponse {
+    const message = createBaseMsgProposeSweepAddressResponse();
+    return message;
+  },
+  fromAmino(_: MsgProposeSweepAddressResponseAmino): MsgProposeSweepAddressResponse {
+    return {};
+  },
+  toAmino(_: MsgProposeSweepAddressResponse): MsgProposeSweepAddressResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgProposeSweepAddressResponseAminoMsg): MsgProposeSweepAddressResponse {
+    return MsgProposeSweepAddressResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgProposeSweepAddressResponseProtoMsg): MsgProposeSweepAddressResponse {
+    return MsgProposeSweepAddressResponse.decode(message.value);
+  },
+  toProto(message: MsgProposeSweepAddressResponse): Uint8Array {
+    return MsgProposeSweepAddressResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgProposeSweepAddressResponse): MsgProposeSweepAddressResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgProposeSweepAddressResponse",
+      value: MsgProposeSweepAddressResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUnsignedTxSweep(): MsgUnsignedTxSweep {
+  return {
+    txId: "",
+    btcUnsignedSweepTx: "",
+    reserveId: BigInt(0),
+    roundId: BigInt(0),
+    judgeAddress: ""
+  };
+}
+export const MsgUnsignedTxSweep = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep",
+  encode(message: MsgUnsignedTxSweep, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.txId !== "") {
+      writer.uint32(10).string(message.txId);
+    }
+    if (message.btcUnsignedSweepTx !== "") {
+      writer.uint32(18).string(message.btcUnsignedSweepTx);
+    }
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(24).uint64(message.reserveId);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(32).uint64(message.roundId);
+    }
+    if (message.judgeAddress !== "") {
+      writer.uint32(42).string(message.judgeAddress);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgUnsignedTxSweep {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUnsignedTxSweep();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.txId = reader.string();
+          break;
+        case 2:
+          message.btcUnsignedSweepTx = reader.string();
+          break;
+        case 3:
+          message.reserveId = reader.uint64();
+          break;
+        case 4:
+          message.roundId = reader.uint64();
+          break;
+        case 5:
+          message.judgeAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgUnsignedTxSweep>): MsgUnsignedTxSweep {
+    const message = createBaseMsgUnsignedTxSweep();
+    message.txId = object.txId ?? "";
+    message.btcUnsignedSweepTx = object.btcUnsignedSweepTx ?? "";
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.judgeAddress = object.judgeAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgUnsignedTxSweepAmino): MsgUnsignedTxSweep {
+    return {
+      txId: object.txId,
+      btcUnsignedSweepTx: object.btcUnsignedSweepTx,
+      reserveId: BigInt(object.reserveId),
+      roundId: BigInt(object.roundId),
+      judgeAddress: object.judgeAddress
+    };
+  },
+  toAmino(message: MsgUnsignedTxSweep): MsgUnsignedTxSweepAmino {
+    const obj: any = {};
+    obj.txId = message.txId;
+    obj.btcUnsignedSweepTx = message.btcUnsignedSweepTx;
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    obj.judgeAddress = message.judgeAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUnsignedTxSweepAminoMsg): MsgUnsignedTxSweep {
+    return MsgUnsignedTxSweep.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUnsignedTxSweepProtoMsg): MsgUnsignedTxSweep {
+    return MsgUnsignedTxSweep.decode(message.value);
+  },
+  toProto(message: MsgUnsignedTxSweep): Uint8Array {
+    return MsgUnsignedTxSweep.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUnsignedTxSweep): MsgUnsignedTxSweepProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweep",
+      value: MsgUnsignedTxSweep.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUnsignedTxSweepResponse(): MsgUnsignedTxSweepResponse {
+  return {};
+}
+export const MsgUnsignedTxSweepResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweepResponse",
+  encode(_: MsgUnsignedTxSweepResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgUnsignedTxSweepResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUnsignedTxSweepResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgUnsignedTxSweepResponse>): MsgUnsignedTxSweepResponse {
+    const message = createBaseMsgUnsignedTxSweepResponse();
+    return message;
+  },
+  fromAmino(_: MsgUnsignedTxSweepResponseAmino): MsgUnsignedTxSweepResponse {
+    return {};
+  },
+  toAmino(_: MsgUnsignedTxSweepResponse): MsgUnsignedTxSweepResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUnsignedTxSweepResponseAminoMsg): MsgUnsignedTxSweepResponse {
+    return MsgUnsignedTxSweepResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUnsignedTxSweepResponseProtoMsg): MsgUnsignedTxSweepResponse {
+    return MsgUnsignedTxSweepResponse.decode(message.value);
+  },
+  toProto(message: MsgUnsignedTxSweepResponse): Uint8Array {
+    return MsgUnsignedTxSweepResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUnsignedTxSweepResponse): MsgUnsignedTxSweepResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxSweepResponse",
+      value: MsgUnsignedTxSweepResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUnsignedTxRefund(): MsgUnsignedTxRefund {
+  return {
+    reserveId: BigInt(0),
+    roundId: BigInt(0),
+    btcUnsignedRefundTx: "",
+    judgeAddress: ""
+  };
+}
+export const MsgUnsignedTxRefund = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund",
+  encode(message: MsgUnsignedTxRefund, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.reserveId);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.roundId);
+    }
+    if (message.btcUnsignedRefundTx !== "") {
+      writer.uint32(26).string(message.btcUnsignedRefundTx);
+    }
+    if (message.judgeAddress !== "") {
+      writer.uint32(34).string(message.judgeAddress);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgUnsignedTxRefund {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUnsignedTxRefund();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.reserveId = reader.uint64();
+          break;
+        case 2:
+          message.roundId = reader.uint64();
+          break;
+        case 3:
+          message.btcUnsignedRefundTx = reader.string();
+          break;
+        case 4:
+          message.judgeAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgUnsignedTxRefund>): MsgUnsignedTxRefund {
+    const message = createBaseMsgUnsignedTxRefund();
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.btcUnsignedRefundTx = object.btcUnsignedRefundTx ?? "";
+    message.judgeAddress = object.judgeAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgUnsignedTxRefundAmino): MsgUnsignedTxRefund {
+    return {
+      reserveId: BigInt(object.reserveId),
+      roundId: BigInt(object.roundId),
+      btcUnsignedRefundTx: object.btcUnsignedRefundTx,
+      judgeAddress: object.judgeAddress
+    };
+  },
+  toAmino(message: MsgUnsignedTxRefund): MsgUnsignedTxRefundAmino {
+    const obj: any = {};
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    obj.btcUnsignedRefundTx = message.btcUnsignedRefundTx;
+    obj.judgeAddress = message.judgeAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgUnsignedTxRefundAminoMsg): MsgUnsignedTxRefund {
+    return MsgUnsignedTxRefund.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUnsignedTxRefundProtoMsg): MsgUnsignedTxRefund {
+    return MsgUnsignedTxRefund.decode(message.value);
+  },
+  toProto(message: MsgUnsignedTxRefund): Uint8Array {
+    return MsgUnsignedTxRefund.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUnsignedTxRefund): MsgUnsignedTxRefundProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefund",
+      value: MsgUnsignedTxRefund.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgUnsignedTxRefundResponse(): MsgUnsignedTxRefundResponse {
+  return {};
+}
+export const MsgUnsignedTxRefundResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefundResponse",
+  encode(_: MsgUnsignedTxRefundResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgUnsignedTxRefundResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUnsignedTxRefundResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgUnsignedTxRefundResponse>): MsgUnsignedTxRefundResponse {
+    const message = createBaseMsgUnsignedTxRefundResponse();
+    return message;
+  },
+  fromAmino(_: MsgUnsignedTxRefundResponseAmino): MsgUnsignedTxRefundResponse {
+    return {};
+  },
+  toAmino(_: MsgUnsignedTxRefundResponse): MsgUnsignedTxRefundResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgUnsignedTxRefundResponseAminoMsg): MsgUnsignedTxRefundResponse {
+    return MsgUnsignedTxRefundResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgUnsignedTxRefundResponseProtoMsg): MsgUnsignedTxRefundResponse {
+    return MsgUnsignedTxRefundResponse.decode(message.value);
+  },
+  toProto(message: MsgUnsignedTxRefundResponse): Uint8Array {
+    return MsgUnsignedTxRefundResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgUnsignedTxRefundResponse): MsgUnsignedTxRefundResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgUnsignedTxRefundResponse",
+      value: MsgUnsignedTxRefundResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSignRefund(): MsgSignRefund {
+  return {
+    reserveId: BigInt(0),
+    roundId: BigInt(0),
+    signerPublicKey: "",
+    refundSignature: "",
+    btcOracleAddress: ""
+  };
+}
+export const MsgSignRefund = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignRefund",
+  encode(message: MsgSignRefund, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.reserveId);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.roundId);
+    }
+    if (message.signerPublicKey !== "") {
+      writer.uint32(26).string(message.signerPublicKey);
+    }
+    if (message.refundSignature !== "") {
+      writer.uint32(34).string(message.refundSignature);
+    }
+    if (message.btcOracleAddress !== "") {
+      writer.uint32(42).string(message.btcOracleAddress);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgSignRefund {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSignRefund();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.reserveId = reader.uint64();
+          break;
+        case 2:
+          message.roundId = reader.uint64();
+          break;
+        case 3:
+          message.signerPublicKey = reader.string();
+          break;
+        case 4:
+          message.refundSignature = reader.string();
+          break;
+        case 5:
+          message.btcOracleAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgSignRefund>): MsgSignRefund {
+    const message = createBaseMsgSignRefund();
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.signerPublicKey = object.signerPublicKey ?? "";
+    message.refundSignature = object.refundSignature ?? "";
+    message.btcOracleAddress = object.btcOracleAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgSignRefundAmino): MsgSignRefund {
+    return {
+      reserveId: BigInt(object.reserveId),
+      roundId: BigInt(object.roundId),
+      signerPublicKey: object.signerPublicKey,
+      refundSignature: object.refundSignature,
+      btcOracleAddress: object.btcOracleAddress
+    };
+  },
+  toAmino(message: MsgSignRefund): MsgSignRefundAmino {
+    const obj: any = {};
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    obj.signerPublicKey = message.signerPublicKey;
+    obj.refundSignature = message.refundSignature;
+    obj.btcOracleAddress = message.btcOracleAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSignRefundAminoMsg): MsgSignRefund {
+    return MsgSignRefund.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSignRefundProtoMsg): MsgSignRefund {
+    return MsgSignRefund.decode(message.value);
+  },
+  toProto(message: MsgSignRefund): Uint8Array {
+    return MsgSignRefund.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSignRefund): MsgSignRefundProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgSignRefund",
+      value: MsgSignRefund.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSignRefundResponse(): MsgSignRefundResponse {
+  return {};
+}
+export const MsgSignRefundResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignRefundResponse",
+  encode(_: MsgSignRefundResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgSignRefundResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSignRefundResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgSignRefundResponse>): MsgSignRefundResponse {
+    const message = createBaseMsgSignRefundResponse();
+    return message;
+  },
+  fromAmino(_: MsgSignRefundResponseAmino): MsgSignRefundResponse {
+    return {};
+  },
+  toAmino(_: MsgSignRefundResponse): MsgSignRefundResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSignRefundResponseAminoMsg): MsgSignRefundResponse {
+    return MsgSignRefundResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSignRefundResponseProtoMsg): MsgSignRefundResponse {
+    return MsgSignRefundResponse.decode(message.value);
+  },
+  toProto(message: MsgSignRefundResponse): Uint8Array {
+    return MsgSignRefundResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSignRefundResponse): MsgSignRefundResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgSignRefundResponse",
+      value: MsgSignRefundResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSignSweep(): MsgSignSweep {
+  return {
+    reserveId: BigInt(0),
+    roundId: BigInt(0),
+    signerPublicKey: "",
+    sweepSignature: [],
+    btcOracleAddress: ""
+  };
+}
+export const MsgSignSweep = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignSweep",
+  encode(message: MsgSignSweep, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.reserveId);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.roundId);
+    }
+    if (message.signerPublicKey !== "") {
+      writer.uint32(26).string(message.signerPublicKey);
+    }
+    for (const v of message.sweepSignature) {
+      writer.uint32(34).string(v!);
+    }
+    if (message.btcOracleAddress !== "") {
+      writer.uint32(42).string(message.btcOracleAddress);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgSignSweep {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSignSweep();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.reserveId = reader.uint64();
+          break;
+        case 2:
+          message.roundId = reader.uint64();
+          break;
+        case 3:
+          message.signerPublicKey = reader.string();
+          break;
+        case 4:
+          message.sweepSignature.push(reader.string());
+          break;
+        case 5:
+          message.btcOracleAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgSignSweep>): MsgSignSweep {
+    const message = createBaseMsgSignSweep();
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.signerPublicKey = object.signerPublicKey ?? "";
+    message.sweepSignature = object.sweepSignature?.map(e => e) || [];
+    message.btcOracleAddress = object.btcOracleAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgSignSweepAmino): MsgSignSweep {
+    return {
+      reserveId: BigInt(object.reserveId),
+      roundId: BigInt(object.roundId),
+      signerPublicKey: object.signerPublicKey,
+      sweepSignature: Array.isArray(object?.sweepSignature) ? object.sweepSignature.map((e: any) => e) : [],
+      btcOracleAddress: object.btcOracleAddress
+    };
+  },
+  toAmino(message: MsgSignSweep): MsgSignSweepAmino {
+    const obj: any = {};
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    obj.signerPublicKey = message.signerPublicKey;
+    if (message.sweepSignature) {
+      obj.sweepSignature = message.sweepSignature.map(e => e);
+    } else {
+      obj.sweepSignature = [];
+    }
+    obj.btcOracleAddress = message.btcOracleAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgSignSweepAminoMsg): MsgSignSweep {
+    return MsgSignSweep.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSignSweepProtoMsg): MsgSignSweep {
+    return MsgSignSweep.decode(message.value);
+  },
+  toProto(message: MsgSignSweep): Uint8Array {
+    return MsgSignSweep.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSignSweep): MsgSignSweepProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgSignSweep",
+      value: MsgSignSweep.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSignSweepResponse(): MsgSignSweepResponse {
+  return {};
+}
+export const MsgSignSweepResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSignSweepResponse",
+  encode(_: MsgSignSweepResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgSignSweepResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSignSweepResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgSignSweepResponse>): MsgSignSweepResponse {
+    const message = createBaseMsgSignSweepResponse();
+    return message;
+  },
+  fromAmino(_: MsgSignSweepResponseAmino): MsgSignSweepResponse {
+    return {};
+  },
+  toAmino(_: MsgSignSweepResponse): MsgSignSweepResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSignSweepResponseAminoMsg): MsgSignSweepResponse {
+    return MsgSignSweepResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSignSweepResponseProtoMsg): MsgSignSweepResponse {
+    return MsgSignSweepResponse.decode(message.value);
+  },
+  toProto(message: MsgSignSweepResponse): Uint8Array {
+    return MsgSignSweepResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSignSweepResponse): MsgSignSweepResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgSignSweepResponse",
+      value: MsgSignSweepResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgBroadcastTxRefund(): MsgBroadcastTxRefund {
+  return {
+    reserveId: BigInt(0),
+    roundId: BigInt(0),
+    signedRefundTx: "",
+    judgeAddress: ""
+  };
+}
+export const MsgBroadcastTxRefund = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund",
+  encode(message: MsgBroadcastTxRefund, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.reserveId);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.roundId);
+    }
+    if (message.signedRefundTx !== "") {
+      writer.uint32(26).string(message.signedRefundTx);
+    }
+    if (message.judgeAddress !== "") {
+      writer.uint32(34).string(message.judgeAddress);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgBroadcastTxRefund {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgBroadcastTxRefund();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.reserveId = reader.uint64();
+          break;
+        case 2:
+          message.roundId = reader.uint64();
+          break;
+        case 3:
+          message.signedRefundTx = reader.string();
+          break;
+        case 4:
+          message.judgeAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgBroadcastTxRefund>): MsgBroadcastTxRefund {
+    const message = createBaseMsgBroadcastTxRefund();
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.signedRefundTx = object.signedRefundTx ?? "";
+    message.judgeAddress = object.judgeAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgBroadcastTxRefundAmino): MsgBroadcastTxRefund {
+    return {
+      reserveId: BigInt(object.reserveId),
+      roundId: BigInt(object.roundId),
+      signedRefundTx: object.signedRefundTx,
+      judgeAddress: object.judgeAddress
+    };
+  },
+  toAmino(message: MsgBroadcastTxRefund): MsgBroadcastTxRefundAmino {
+    const obj: any = {};
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    obj.signedRefundTx = message.signedRefundTx;
+    obj.judgeAddress = message.judgeAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgBroadcastTxRefundAminoMsg): MsgBroadcastTxRefund {
+    return MsgBroadcastTxRefund.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgBroadcastTxRefundProtoMsg): MsgBroadcastTxRefund {
+    return MsgBroadcastTxRefund.decode(message.value);
+  },
+  toProto(message: MsgBroadcastTxRefund): Uint8Array {
+    return MsgBroadcastTxRefund.encode(message).finish();
+  },
+  toProtoMsg(message: MsgBroadcastTxRefund): MsgBroadcastTxRefundProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefund",
+      value: MsgBroadcastTxRefund.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgBroadcastTxRefundResponse(): MsgBroadcastTxRefundResponse {
+  return {};
+}
+export const MsgBroadcastTxRefundResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefundResponse",
+  encode(_: MsgBroadcastTxRefundResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgBroadcastTxRefundResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgBroadcastTxRefundResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgBroadcastTxRefundResponse>): MsgBroadcastTxRefundResponse {
+    const message = createBaseMsgBroadcastTxRefundResponse();
+    return message;
+  },
+  fromAmino(_: MsgBroadcastTxRefundResponseAmino): MsgBroadcastTxRefundResponse {
+    return {};
+  },
+  toAmino(_: MsgBroadcastTxRefundResponse): MsgBroadcastTxRefundResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgBroadcastTxRefundResponseAminoMsg): MsgBroadcastTxRefundResponse {
+    return MsgBroadcastTxRefundResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgBroadcastTxRefundResponseProtoMsg): MsgBroadcastTxRefundResponse {
+    return MsgBroadcastTxRefundResponse.decode(message.value);
+  },
+  toProto(message: MsgBroadcastTxRefundResponse): Uint8Array {
+    return MsgBroadcastTxRefundResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgBroadcastTxRefundResponse): MsgBroadcastTxRefundResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxRefundResponse",
+      value: MsgBroadcastTxRefundResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgBroadcastTxSweep(): MsgBroadcastTxSweep {
+  return {
+    reserveId: BigInt(0),
+    roundId: BigInt(0),
+    signedSweepTx: "",
+    judgeAddress: ""
+  };
+}
+export const MsgBroadcastTxSweep = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweep",
+  encode(message: MsgBroadcastTxSweep, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.reserveId);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(16).uint64(message.roundId);
+    }
+    if (message.signedSweepTx !== "") {
+      writer.uint32(26).string(message.signedSweepTx);
+    }
+    if (message.judgeAddress !== "") {
+      writer.uint32(34).string(message.judgeAddress);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgBroadcastTxSweep {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgBroadcastTxSweep();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.reserveId = reader.uint64();
+          break;
+        case 2:
+          message.roundId = reader.uint64();
+          break;
+        case 3:
+          message.signedSweepTx = reader.string();
+          break;
+        case 4:
+          message.judgeAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgBroadcastTxSweep>): MsgBroadcastTxSweep {
+    const message = createBaseMsgBroadcastTxSweep();
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.signedSweepTx = object.signedSweepTx ?? "";
+    message.judgeAddress = object.judgeAddress ?? "";
+    return message;
+  },
+  fromAmino(object: MsgBroadcastTxSweepAmino): MsgBroadcastTxSweep {
+    return {
+      reserveId: BigInt(object.reserveId),
+      roundId: BigInt(object.roundId),
+      signedSweepTx: object.signedSweepTx,
+      judgeAddress: object.judgeAddress
+    };
+  },
+  toAmino(message: MsgBroadcastTxSweep): MsgBroadcastTxSweepAmino {
+    const obj: any = {};
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    obj.signedSweepTx = message.signedSweepTx;
+    obj.judgeAddress = message.judgeAddress;
+    return obj;
+  },
+  fromAminoMsg(object: MsgBroadcastTxSweepAminoMsg): MsgBroadcastTxSweep {
+    return MsgBroadcastTxSweep.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgBroadcastTxSweepProtoMsg): MsgBroadcastTxSweep {
+    return MsgBroadcastTxSweep.decode(message.value);
+  },
+  toProto(message: MsgBroadcastTxSweep): Uint8Array {
+    return MsgBroadcastTxSweep.encode(message).finish();
+  },
+  toProtoMsg(message: MsgBroadcastTxSweep): MsgBroadcastTxSweepProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweep",
+      value: MsgBroadcastTxSweep.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgBroadcastTxSweepResponse(): MsgBroadcastTxSweepResponse {
+  return {};
+}
+export const MsgBroadcastTxSweepResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweepResponse",
+  encode(_: MsgBroadcastTxSweepResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgBroadcastTxSweepResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgBroadcastTxSweepResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgBroadcastTxSweepResponse>): MsgBroadcastTxSweepResponse {
+    const message = createBaseMsgBroadcastTxSweepResponse();
+    return message;
+  },
+  fromAmino(_: MsgBroadcastTxSweepResponseAmino): MsgBroadcastTxSweepResponse {
+    return {};
+  },
+  toAmino(_: MsgBroadcastTxSweepResponse): MsgBroadcastTxSweepResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgBroadcastTxSweepResponseAminoMsg): MsgBroadcastTxSweepResponse {
+    return MsgBroadcastTxSweepResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgBroadcastTxSweepResponseProtoMsg): MsgBroadcastTxSweepResponse {
+    return MsgBroadcastTxSweepResponse.decode(message.value);
+  },
+  toProto(message: MsgBroadcastTxSweepResponse): Uint8Array {
+    return MsgBroadcastTxSweepResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgBroadcastTxSweepResponse): MsgBroadcastTxSweepResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgBroadcastTxSweepResponse",
+      value: MsgBroadcastTxSweepResponse.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSweepProposal(): MsgSweepProposal {
+  return {
+    reserveId: BigInt(0),
+    newReserveAddress: "",
+    judgeAddress: "",
+    BtcBlockNumber: BigInt(0),
+    btcRelayCapacityValue: BigInt(0),
+    btcTxHash: "",
+    UnlockHeight: BigInt(0),
+    roundId: BigInt(0),
+    withdrawIdentifiers: []
+  };
+}
+export const MsgSweepProposal = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposal",
+  encode(message: MsgSweepProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    if (message.reserveId !== BigInt(0)) {
+      writer.uint32(8).uint64(message.reserveId);
+    }
+    if (message.newReserveAddress !== "") {
+      writer.uint32(18).string(message.newReserveAddress);
+    }
+    if (message.judgeAddress !== "") {
+      writer.uint32(26).string(message.judgeAddress);
+    }
+    if (message.BtcBlockNumber !== BigInt(0)) {
+      writer.uint32(32).uint64(message.BtcBlockNumber);
+    }
+    if (message.btcRelayCapacityValue !== BigInt(0)) {
+      writer.uint32(40).uint64(message.btcRelayCapacityValue);
+    }
+    if (message.btcTxHash !== "") {
+      writer.uint32(50).string(message.btcTxHash);
+    }
+    if (message.UnlockHeight !== BigInt(0)) {
+      writer.uint32(56).uint64(message.UnlockHeight);
+    }
+    if (message.roundId !== BigInt(0)) {
+      writer.uint32(64).uint64(message.roundId);
+    }
+    for (const v of message.withdrawIdentifiers) {
+      writer.uint32(74).string(v!);
+    }
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgSweepProposal {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSweepProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.reserveId = reader.uint64();
+          break;
+        case 2:
+          message.newReserveAddress = reader.string();
+          break;
+        case 3:
+          message.judgeAddress = reader.string();
+          break;
+        case 4:
+          message.BtcBlockNumber = reader.uint64();
+          break;
+        case 5:
+          message.btcRelayCapacityValue = reader.uint64();
+          break;
+        case 6:
+          message.btcTxHash = reader.string();
+          break;
+        case 7:
+          message.UnlockHeight = reader.uint64();
+          break;
+        case 8:
+          message.roundId = reader.uint64();
+          break;
+        case 9:
+          message.withdrawIdentifiers.push(reader.string());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(object: Partial<MsgSweepProposal>): MsgSweepProposal {
+    const message = createBaseMsgSweepProposal();
+    message.reserveId = object.reserveId !== undefined && object.reserveId !== null ? BigInt(object.reserveId.toString()) : BigInt(0);
+    message.newReserveAddress = object.newReserveAddress ?? "";
+    message.judgeAddress = object.judgeAddress ?? "";
+    message.BtcBlockNumber = object.BtcBlockNumber !== undefined && object.BtcBlockNumber !== null ? BigInt(object.BtcBlockNumber.toString()) : BigInt(0);
+    message.btcRelayCapacityValue = object.btcRelayCapacityValue !== undefined && object.btcRelayCapacityValue !== null ? BigInt(object.btcRelayCapacityValue.toString()) : BigInt(0);
+    message.btcTxHash = object.btcTxHash ?? "";
+    message.UnlockHeight = object.UnlockHeight !== undefined && object.UnlockHeight !== null ? BigInt(object.UnlockHeight.toString()) : BigInt(0);
+    message.roundId = object.roundId !== undefined && object.roundId !== null ? BigInt(object.roundId.toString()) : BigInt(0);
+    message.withdrawIdentifiers = object.withdrawIdentifiers?.map(e => e) || [];
+    return message;
+  },
+  fromAmino(object: MsgSweepProposalAmino): MsgSweepProposal {
+    return {
+      reserveId: BigInt(object.reserveId),
+      newReserveAddress: object.newReserveAddress,
+      judgeAddress: object.judgeAddress,
+      BtcBlockNumber: BigInt(object.BtcBlockNumber),
+      btcRelayCapacityValue: BigInt(object.btcRelayCapacityValue),
+      btcTxHash: object.btcTxHash,
+      UnlockHeight: BigInt(object.UnlockHeight),
+      roundId: BigInt(object.roundId),
+      withdrawIdentifiers: Array.isArray(object?.withdrawIdentifiers) ? object.withdrawIdentifiers.map((e: any) => e) : []
+    };
+  },
+  toAmino(message: MsgSweepProposal): MsgSweepProposalAmino {
+    const obj: any = {};
+    obj.reserveId = message.reserveId ? message.reserveId.toString() : undefined;
+    obj.newReserveAddress = message.newReserveAddress;
+    obj.judgeAddress = message.judgeAddress;
+    obj.BtcBlockNumber = message.BtcBlockNumber ? message.BtcBlockNumber.toString() : undefined;
+    obj.btcRelayCapacityValue = message.btcRelayCapacityValue ? message.btcRelayCapacityValue.toString() : undefined;
+    obj.btcTxHash = message.btcTxHash;
+    obj.UnlockHeight = message.UnlockHeight ? message.UnlockHeight.toString() : undefined;
+    obj.roundId = message.roundId ? message.roundId.toString() : undefined;
+    if (message.withdrawIdentifiers) {
+      obj.withdrawIdentifiers = message.withdrawIdentifiers.map(e => e);
+    } else {
+      obj.withdrawIdentifiers = [];
+    }
+    return obj;
+  },
+  fromAminoMsg(object: MsgSweepProposalAminoMsg): MsgSweepProposal {
+    return MsgSweepProposal.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSweepProposalProtoMsg): MsgSweepProposal {
+    return MsgSweepProposal.decode(message.value);
+  },
+  toProto(message: MsgSweepProposal): Uint8Array {
+    return MsgSweepProposal.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSweepProposal): MsgSweepProposalProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposal",
+      value: MsgSweepProposal.encode(message).finish()
+    };
+  }
+};
+function createBaseMsgSweepProposalResponse(): MsgSweepProposalResponse {
+  return {};
+}
+export const MsgSweepProposalResponse = {
+  typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposalResponse",
+  encode(_: MsgSweepProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+    return writer;
+  },
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgSweepProposalResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgSweepProposalResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromPartial(_: Partial<MsgSweepProposalResponse>): MsgSweepProposalResponse {
+    const message = createBaseMsgSweepProposalResponse();
+    return message;
+  },
+  fromAmino(_: MsgSweepProposalResponseAmino): MsgSweepProposalResponse {
+    return {};
+  },
+  toAmino(_: MsgSweepProposalResponse): MsgSweepProposalResponseAmino {
+    const obj: any = {};
+    return obj;
+  },
+  fromAminoMsg(object: MsgSweepProposalResponseAminoMsg): MsgSweepProposalResponse {
+    return MsgSweepProposalResponse.fromAmino(object.value);
+  },
+  fromProtoMsg(message: MsgSweepProposalResponseProtoMsg): MsgSweepProposalResponse {
+    return MsgSweepProposalResponse.decode(message.value);
+  },
+  toProto(message: MsgSweepProposalResponse): Uint8Array {
+    return MsgSweepProposalResponse.encode(message).finish();
+  },
+  toProtoMsg(message: MsgSweepProposalResponse): MsgSweepProposalResponseProtoMsg {
+    return {
+      typeUrl: "/twilightproject.nyks.bridge.MsgSweepProposalResponse",
+      value: MsgSweepProposalResponse.encode(message).finish()
     };
   }
 };

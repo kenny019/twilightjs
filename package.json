@@ -1,6 +1,6 @@
 {
   "name": "twilightjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Typescript bindings for Twilight",
   "author": "twilight",
   "homepage": "https://github.com/kenny019/twilightjs#readme",

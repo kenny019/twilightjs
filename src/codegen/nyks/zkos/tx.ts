@@ -1,5 +1,4 @@
-import { Long, DeepPartial } from "../../helpers";
-import * as _m0 from "protobufjs/minimal";
+import { BinaryReader, BinaryWriter } from "../../binary";
 export interface MsgTransferTx {
   txId: string;
   txByteCode: string;
@@ -36,7 +35,7 @@ export interface MsgTransferTxResponseAminoMsg {
 export interface MsgTransferTxResponseSDKType {}
 export interface MsgMintBurnTradingBtc {
   mintOrBurn: boolean;
-  btcValue: Long;
+  btcValue: bigint;
   qqAccount: string;
   encryptScalar: string;
   twilightAddress: string;
@@ -58,7 +57,7 @@ export interface MsgMintBurnTradingBtcAminoMsg {
 }
 export interface MsgMintBurnTradingBtcSDKType {
   mintOrBurn: boolean;
-  btcValue: Long;
+  btcValue: bigint;
   qqAccount: string;
   encryptScalar: string;
   twilightAddress: string;
@@ -82,7 +81,8 @@ function createBaseMsgTransferTx(): MsgTransferTx {
   };
 }
 export const MsgTransferTx = {
-  encode(message: MsgTransferTx, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.zkos.MsgTransferTx",
+  encode(message: MsgTransferTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txId !== "") {
       writer.uint32(10).string(message.txId);
     }
@@ -94,8 +94,8 @@ export const MsgTransferTx = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransferTx {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgTransferTx {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTransferTx();
     while (reader.pos < end) {
@@ -117,7 +117,7 @@ export const MsgTransferTx = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgTransferTx>): MsgTransferTx {
+  fromPartial(object: Partial<MsgTransferTx>): MsgTransferTx {
     const message = createBaseMsgTransferTx();
     message.txId = object.txId ?? "";
     message.txByteCode = object.txByteCode ?? "";
@@ -158,11 +158,12 @@ function createBaseMsgTransferTxResponse(): MsgTransferTxResponse {
   return {};
 }
 export const MsgTransferTxResponse = {
-  encode(_: MsgTransferTxResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.zkos.MsgTransferTxResponse",
+  encode(_: MsgTransferTxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTransferTxResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgTransferTxResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgTransferTxResponse();
     while (reader.pos < end) {
@@ -175,7 +176,7 @@ export const MsgTransferTxResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgTransferTxResponse>): MsgTransferTxResponse {
+  fromPartial(_: Partial<MsgTransferTxResponse>): MsgTransferTxResponse {
     const message = createBaseMsgTransferTxResponse();
     return message;
   },
@@ -205,18 +206,19 @@ export const MsgTransferTxResponse = {
 function createBaseMsgMintBurnTradingBtc(): MsgMintBurnTradingBtc {
   return {
     mintOrBurn: false,
-    btcValue: Long.UZERO,
+    btcValue: BigInt(0),
     qqAccount: "",
     encryptScalar: "",
     twilightAddress: ""
   };
 }
 export const MsgMintBurnTradingBtc = {
-  encode(message: MsgMintBurnTradingBtc, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.zkos.MsgMintBurnTradingBtc",
+  encode(message: MsgMintBurnTradingBtc, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.mintOrBurn === true) {
       writer.uint32(8).bool(message.mintOrBurn);
     }
-    if (!message.btcValue.isZero()) {
+    if (message.btcValue !== BigInt(0)) {
       writer.uint32(16).uint64(message.btcValue);
     }
     if (message.qqAccount !== "") {
@@ -230,8 +232,8 @@ export const MsgMintBurnTradingBtc = {
     }
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintBurnTradingBtc {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgMintBurnTradingBtc {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMintBurnTradingBtc();
     while (reader.pos < end) {
@@ -241,7 +243,7 @@ export const MsgMintBurnTradingBtc = {
           message.mintOrBurn = reader.bool();
           break;
         case 2:
-          message.btcValue = (reader.uint64() as Long);
+          message.btcValue = reader.uint64();
           break;
         case 3:
           message.qqAccount = reader.string();
@@ -259,10 +261,10 @@ export const MsgMintBurnTradingBtc = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<MsgMintBurnTradingBtc>): MsgMintBurnTradingBtc {
+  fromPartial(object: Partial<MsgMintBurnTradingBtc>): MsgMintBurnTradingBtc {
     const message = createBaseMsgMintBurnTradingBtc();
     message.mintOrBurn = object.mintOrBurn ?? false;
-    message.btcValue = object.btcValue !== undefined && object.btcValue !== null ? Long.fromValue(object.btcValue) : Long.UZERO;
+    message.btcValue = object.btcValue !== undefined && object.btcValue !== null ? BigInt(object.btcValue.toString()) : BigInt(0);
     message.qqAccount = object.qqAccount ?? "";
     message.encryptScalar = object.encryptScalar ?? "";
     message.twilightAddress = object.twilightAddress ?? "";
@@ -271,7 +273,7 @@ export const MsgMintBurnTradingBtc = {
   fromAmino(object: MsgMintBurnTradingBtcAmino): MsgMintBurnTradingBtc {
     return {
       mintOrBurn: object.mintOrBurn,
-      btcValue: Long.fromString(object.btcValue),
+      btcValue: BigInt(object.btcValue),
       qqAccount: object.qqAccount,
       encryptScalar: object.encryptScalar,
       twilightAddress: object.twilightAddress
@@ -306,11 +308,12 @@ function createBaseMsgMintBurnTradingBtcResponse(): MsgMintBurnTradingBtcRespons
   return {};
 }
 export const MsgMintBurnTradingBtcResponse = {
-  encode(_: MsgMintBurnTradingBtcResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  typeUrl: "/twilightproject.nyks.zkos.MsgMintBurnTradingBtcResponse",
+  encode(_: MsgMintBurnTradingBtcResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMintBurnTradingBtcResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: BinaryReader | Uint8Array, length?: number): MsgMintBurnTradingBtcResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgMintBurnTradingBtcResponse();
     while (reader.pos < end) {
@@ -323,7 +326,7 @@ export const MsgMintBurnTradingBtcResponse = {
     }
     return message;
   },
-  fromPartial(_: DeepPartial<MsgMintBurnTradingBtcResponse>): MsgMintBurnTradingBtcResponse {
+  fromPartial(_: Partial<MsgMintBurnTradingBtcResponse>): MsgMintBurnTradingBtcResponse {
     const message = createBaseMsgMintBurnTradingBtcResponse();
     return message;
   },
