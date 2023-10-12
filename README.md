@@ -246,7 +246,7 @@ const stargateClient = await SigningStargateClient.connectWithSigner(rpcEndpoint
 When first cloning the repo:
 
 ```
-yarn
+pnpm i
 pnpm build
 ```
 
