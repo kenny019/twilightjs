@@ -24,6 +24,7 @@
     "build:rename": "publish-scripts --cmd rename --srcDir mjs --outDir dist --findExt js --replaceExt mjs --no-rmDir",
     "build": "pnpm run clean && pnpm run build:cjs && pnpm run build:mjs && pnpm run build:rename",
     "codegen": "node scripts/codegen.js",
+    "transpile": "pnpm telescope transpile",
     "prepare": "pnpm run build",
     "lint": "eslint src --fix",
     "test": "jest",
